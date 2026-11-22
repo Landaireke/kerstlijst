@@ -6,7 +6,7 @@ import * as marketplace from './sources/marketplace.js';
 import * as vinted from './sources/vinted.js';
 import * as direct from './sources/direct.js';
 import { assessShop } from './trust.js';
-import { textCheck, visionCheck, verdict, normalizeCondition, CONDITION_LABEL } from './condition.js';
+import { textCheck, visionCheck, verdict, normalizeCondition, CONDITION_LABEL, ruleCheck } from './condition.js';
 import { secondhandCost } from './costs.js';
 import { resolveAmazon } from './resolve.js';
 import { hasFirecrawl } from './firecrawl.js';
@@ -93,7 +93,9 @@ async function runSecondhand(item, db) {
     const hay = `${l.title} ${l.brand || ''} ${l.description}`.toLowerCase();
     const brandOk = brandWords.some((w) => hay.includes(w.toLowerCase()));
     const hardFlags = flags.filter((f) => f.type !== 'fake');
+    const ruleFail = ruleCheck(item, l);
     if (!brandOk) rejected.push({ ...l, reasons: ['Ander merk'] });
+    else if (ruleFail) rejected.push({ ...l, reasons: [ruleFail] });
     else if (['good', 'fair'].includes(norm)) rejected.push({ ...l, reasons: [`Staat: ${l.condition}`] });
     else if (hardFlags.length) rejected.push({ ...l, reasons: hardFlags.map((f) => f.text) });
     else if (l.price == null) rejected.push({ ...l, reasons: ['Geen vaste prijs (bieden)'], biddable: true });

@@ -53,6 +53,7 @@ export function normalize(site, l) {
     condition: attr(l, 'condition'),
     size: attr(l, 'size'),
     brand: attr(l, 'brand_mens_clothing') || attr(l, 'brand'),
+    color: attr(l, 'color'),
     location: [l.location?.cityName, l.location?.countryName].filter(Boolean).join(', '),
     photos: (l.pictures || []).map((p) => p.extraExtraLargeUrl || p.largeUrl).filter(Boolean).slice(0, 6),
     url: `${base}${l.vipUrl}`,

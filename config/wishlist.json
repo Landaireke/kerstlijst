@@ -56,6 +56,60 @@
         "amiparis",
         "ami coeur",
         "ami cœur"
+      ],
+      "mustInclude": [
+        [
+          "ami"
+        ],
+        [
+          "trui",
+          "sweater",
+          "sweat",
+          "crewneck",
+          "pull",
+          "sweatshirt"
+        ],
+        [
+          "zwart",
+          "black",
+          "noir"
+        ]
+      ],
+      "titleExclude": [
+        "wit",
+        "white",
+        "blanc",
+        "grijs",
+        "grey",
+        "gray",
+        "gris",
+        "rood",
+        "red",
+        "rouge",
+        "groen",
+        "green",
+        "vert",
+        "blauw",
+        "blue",
+        "bleu",
+        "beige",
+        "creme",
+        "crème",
+        "cream",
+        "navy",
+        "knit",
+        "gebreid",
+        "wol",
+        "wool",
+        "vest",
+        "cardigan",
+        "hoodie",
+        "capuchon",
+        "t-shirt",
+        "tshirt",
+        "klein hart",
+        "small heart",
+        "petit coeur"
       ]
     },
     {
@@ -75,6 +129,59 @@
         "stone island",
         "stoneisland",
         "stone-island"
+      ],
+      "mustInclude": [
+        [
+          "stone island",
+          "stoneisland",
+          "stone-island"
+        ],
+        [
+          "trui",
+          "sweater",
+          "sweat",
+          "crewneck",
+          "pull",
+          "felpa",
+          "sweatshirt"
+        ],
+        [
+          "grijs",
+          "grey",
+          "gray",
+          "gris",
+          "grigio"
+        ]
+      ],
+      "titleExclude": [
+        "knuffel",
+        "patch",
+        "label",
+        "knopen",
+        "buttons",
+        "ghost",
+        "zonder badge",
+        "no badge",
+        "sans badge",
+        "blauw",
+        "blue",
+        "zwart",
+        "black",
+        "navy",
+        "groen",
+        "green",
+        "hoodie",
+        "capuchon",
+        "jas",
+        "jacket",
+        "junior",
+        "kids",
+        "t-shirt",
+        "polo",
+        "broek",
+        "short",
+        "overshirt",
+        "vest"
       ]
     },
     {
@@ -94,6 +201,56 @@
         "essentials",
         "fear of god",
         "fog "
+      ],
+      "mustInclude": [
+        [
+          "essentials",
+          "fear of god"
+        ],
+        [
+          "hoodie",
+          "hoody",
+          "hooded",
+          "capuchon",
+          "sweat à capuche"
+        ],
+        [
+          "grijs",
+          "grey",
+          "gray",
+          "heather",
+          "oatmeal",
+          "gris",
+          "light"
+        ]
+      ],
+      "titleExclude": [
+        "adidas",
+        "nike",
+        "zara",
+        "h&m",
+        "puma",
+        "champion",
+        "primark",
+        "jack & jones",
+        "tommy",
+        "calvin",
+        "ellesse",
+        "under armour",
+        "decathlon",
+        "kappa",
+        "shein",
+        "c&a",
+        "zip",
+        "rits",
+        "vest",
+        "zwart",
+        "black",
+        "kids",
+        "junior",
+        "broek",
+        "jogging",
+        "pak"
       ]
     }
   ]

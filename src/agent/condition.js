@@ -84,3 +84,15 @@ export function verdict(item, listing, flags, vision) {
   if (flags.some((f) => f.type === 'fake') || fakeRisk === 'high') reasons.push('Hoog risico op namaak');
   return { approved: reasons.length === 0, reasons, fakeRisk, conditionNorm: norm };
 }
+
+/** Titel-/kleurregels uit config: elke groep moet minstens één keer voorkomen, uitsluitingen nooit in de titel. */
+export function ruleCheck(item, l) {
+  const all = `${l.title} ${l.description || ''} ${l.color || ''} ${l.brand || ''}`.toLowerCase();
+  const titleColor = `${l.title} ${l.color || ''}`.toLowerCase();
+  const has = (txt, w) => new RegExp(`(^|[^a-zà-ÿ])${w.toLowerCase().replace(/[.*+?^${}()|[\]\\&]/g, '\\$&')}([^a-zà-ÿ]|$)`).test(txt);
+  for (const group of item.mustInclude || []) {
+    if (!group.some((w) => has(all, w))) return `Mist "${group[0]}"`;
+  }
+  const bad = (item.titleExclude || []).find((w) => has(titleColor, w));
+  return bad ? `Ander model ("${bad}")` : null;
+}
