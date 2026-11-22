@@ -10,8 +10,8 @@ const STATUS = ['6', '1', '2'];
 export function catalogUrl(domain, query, maxPrice) {
   const p = new URLSearchParams({ search_text: query, price_to: String(maxPrice), currency: 'EUR', order: 'newest_first' });
   STATUS.forEach((s) => p.append('status_ids[]', s));
-  // catalog 5 = heren; essentials-hoodies zijn unisex maar staan vrijwel altijd bij heren
-  return `https://${domain}/catalog/5-men?${p.toString()}`;
+  p.append('catalog[]', '5'); // 5 = heren
+  return `https://${domain}/catalog?${p.toString()}`;
 }
 
 const LIST_SCHEMA = {
@@ -123,8 +123,78 @@ async function searchDirect(item) {
   return [...out.values()];
 }
 
+// ---- Via Firecrawl (gratis plan volstaat): zoekpagina als HTML, 1 credit per pagina ----
+const decode = (t) => t.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
+/** Vinted zet alle info in de alt-tekst: "Titel, Merk: X, Staat: Y, Maat: L, 20.00 €, 21.70 €" (NL/FR/EN). */
+export function parseAlt(alt) {
+  const parts = decode(alt).split(/,\s+/);
+  const out = { title: [], brand: null, condition: null, size: null, prices: [] };
+  for (const p of parts) {
+    const kv = p.match(/^(Merk|Marque|Brand|Marke|Staat|État|Etat|Condition|Zustand|Maat|Taille|Size|Größe)\s*:\s*(.+)$/i);
+    if (kv) {
+      const k = kv[1].toLowerCase();
+      if (/merk|marque|brand|marke/.test(k)) out.brand = kv[2];
+      else if (/staat|état|etat|condition|zustand/.test(k)) out.condition = kv[2];
+      else out.size = kv[2];
+    } else if (/^€?\s*\d+[.,]\d{2}\s*€?$/.test(p.trim())) out.prices.push(parsePrice(p));
+    else if (!out.brand && !out.condition && !out.size) out.title.push(p);
+  }
+  return { ...out, title: out.title.join(', ') };
+}
+
+export function parseCatalogHtml(html, domain) {
+  const items = [];
+  const re = /<img[^>]+src="([^"]+)"[^>]+alt="([^"]+)"[^>]*data-testid="product-item-id-(\d+)--image--img"/g;
+  for (const m of html.matchAll(re)) {
+    const [, src, alt, id] = m;
+    const a = parseAlt(alt);
+    const link = html.match(new RegExp(`href="([^"]*/items/${id}[^"]*)"`))?.[1];
+    items.push({
+      id: 'vinted:' + id,
+      source: 'vinted',
+      title: a.title,
+      description: '',
+      price: a.prices[0] ?? null,
+      priceInclProtection: a.prices[1] ?? null,
+      priceType: 'FIXED',
+      condition: a.condition,
+      size: a.size,
+      brand: a.brand,
+      location: '',
+      photos: [decode(src)],
+      url: link ? decode(link).split('?')[0] : `https://${domain}/items/${id}`,
+      canShip: true,
+      pickupOnly: false,
+      needsDetail: false,
+    });
+  }
+  return items;
+}
+
+async function searchViaFirecrawl(item) {
+  const out = new Map();
+  for (const domain of DOMAINS) {
+    for (const q of item.searchQueries.slice(0, 2)) {
+      try {
+        const html = await fc.scrapeHtml(catalogUrl(domain, q, item.maxPrice), ['[data-testid=grid-item]']);
+        const found = parseCatalogHtml(html, domain);
+        log(`  vinted ${domain} "${q}": ${found.length} artikelen`);
+        for (const n of found) if (n.price == null || n.price <= item.maxPrice) out.set(n.id, n);
+      } catch (e) {
+        log(`vinted ${domain} via Firecrawl: ${e.message}`);
+      }
+    }
+  }
+  return [...out.values()];
+}
+
 export async function search(item) {
   if (!fc.hasFirecrawl()) return searchDirect(item);
+  return searchViaFirecrawl(item);
+}
+
+export async function searchJsonMode(item) {
   const out = new Map();
   for (const domain of DOMAINS) {
     for (const q of item.searchQueries.slice(0, 2)) {

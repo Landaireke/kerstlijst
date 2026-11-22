@@ -19,7 +19,9 @@ Zonder API-sleutels werkt alles gratis:
 - Geen automatische fotocontrole: kijk zelf de foto's na (ze staan in de app).
 - Opslag in Supabase (gratis), ochtendronde gestart door Supabase pg_cron.
 
-Met `FIRECRAWL_API_KEY` en `ANTHROPIC_API_KEY` (optioneel, betaald) zoekt de agent breder en controleert Claude ook de foto's.
+**Vinted** blokkeert servers rechtstreeks. Met een gratis `FIRECRAWL_API_KEY` (gratis plan, 1.000 credits/maand) leest de agent de Vinted-zoekpagina's (± 12 credits per dag). Andere zaken gebruiken Firecrawl alleen met `FIRECRAWL_FULL=true`.
+
+Met `ANTHROPIC_API_KEY` en `FIRECRAWL_FULL=true` (optioneel, betaald) zoekt de agent breder en controleert Claude ook de foto's.
 
 ## Wat de agent per item doet (met sleutels)
 

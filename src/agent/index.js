@@ -34,7 +34,8 @@ async function runNew(item, db) {
   }
 
   let tw, ws;
-  if (hasFirecrawl()) {
+  // Firecrawl voor nieuwe producten kost veel credits: alleen als FIRECRAWL_FULL=true
+  if (hasFirecrawl() && process.env.FIRECRAWL_FULL === 'true') {
     [tw, ws] = await Promise.all([
       tweakers.getOffers(item).catch((e) => (warnings.push(`Tweakers: ${e.message}`), { offers: [] })),
       webshops.getOffers(item, [item.sourceUrl, item.resolvedUrl]).catch((e) => (warnings.push(`Webshops: ${e.message}`), { offers: [] })),

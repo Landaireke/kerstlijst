@@ -27,3 +27,23 @@ test('Vinted API-item normaliseren', () => {
   assert.equal(n.photos[0], 'https://p/1f.jpg');
   assert.match(apiUrl('www.vinted.be', 'stone island', 23), /status_ids%5B%5D=2/);
 });
+
+import fs from 'node:fs';
+import { parseCatalogHtml, parseAlt } from '../src/agent/sources/vinted.js';
+test('Vinted zoekpagina (echte HTML) uitlezen', () => {
+  const html = fs.readFileSync(new URL('./fixtures/vinted-catalog.html', import.meta.url), 'utf8');
+  const items = parseCatalogHtml(html, 'www.vinted.be');
+  assert.ok(items.length >= 5);
+  const first = items[0];
+  assert.equal(first.title, 'Trui look a like stone island');
+  assert.equal(first.size, 'L');
+  assert.equal(first.price, 5);
+  assert.equal(first.priceInclProtection, 5.95);
+  assert.match(first.url, /^https:\/\/www\.vinted\.be\/items\/\d+/);
+  assert.match(first.photos[0], /^https:\/\/images\d?\.vinted\.net/);
+  const nl = parseAlt('Ami de coeur sweater, Merk: AMI Paris, Staat: Zeer goed, Maat: XL, 20,00 €, 21,70 €');
+  assert.equal(nl.brand, 'AMI Paris');
+  assert.equal(nl.condition, 'Zeer goed');
+  assert.equal(nl.size, 'XL');
+  assert.deepEqual(nl.prices, [20, 21.7]);
+});

@@ -42,6 +42,12 @@ export async function scrapeRaw(url, { maxAge = 0 } = {}) {
   return json.data?.rawHtml || '';
 }
 
+/** Pagina als HTML, beperkt tot bepaalde elementen (goedkoop: 1 credit). */
+export async function scrapeHtml(url, includeTags = [], { maxAge = 0 } = {}) {
+  const json = await post('/scrape', { url, formats: ['html'], includeTags, onlyMainContent: false, maxAge, location: { country: 'BE', languages: ['nl-BE'] } });
+  return json.data?.html || '';
+}
+
 /** Pagina lezen en gestructureerde data laten extraheren volgens een JSON-schema. */
 export async function scrapeJson(url, schema, prompt, { maxAge = 0, waitFor } = {}) {
   const body = {

@@ -22,7 +22,7 @@ export const CONDITION_LABEL = {
 
 const DEFECT_WORDS = /\b(vlek(je|ken)?|scheur(tje)?|gaatje|gat(en)?\b|pilling|pluis|bolletjes|verkleurd|vaal|beschadig\w*|kapot|defect|tache[s]?|trou[s]?|déchir\w*|boulochage|bouloch\w*|délavé|abîm\w*|stain(s|ed)?|hole[s]?|tear|ripped|faded|flecken|loch)\b/i;
 const KIDS_WORDS = /\b(junior|kids?|kinder\w*|enfant\w*|jongen\w*|meisje\w*|bimbo|niño|\d{1,2}\s?(jaar|ans|years|anni)|maat\s?(9[28]|1[0-7]\d)\b|(1[0-7]\d|9[28])\s?cm|taille\s?(1[0-6]\d))\b/i;
-const FAKE_WORDS = /(?<![a-zà-ÿ])(nep|fake|faux|replica|replika|rep|1:1|aaa|a\+|inspired|look-?alike|lookalike|dupe|copie|copy|kopie|namaak|nagemaakt|imitatie|imitation|contrefa[cç]on|niet origineel|geen origineel|not original|pas original|non original|ua quality|top kwaliteit kopie|zonder badge|sans badge|no badge|zonder logo)(?![a-zà-ÿ])/i;
+const FAKE_WORDS = /(?<![a-zà-ÿ])(nep|fake|faux|replica|replika|rep|1:1|aaa|a\+|inspired|look-?a-?like|look a like|lookalike|dupe|copie|copy|kopie|namaak|nagemaakt|imitatie|imitation|contrefa[cç]on|niet origineel|geen origineel|not original|pas original|non original|ua quality|top kwaliteit kopie|zonder badge|sans badge|no badge|zonder logo)(?![a-zà-ÿ])/i;
 
 export function textCheck(listing) {
   const text = `${listing.title} ${listing.description || ''} ${listing.size || ''}`;

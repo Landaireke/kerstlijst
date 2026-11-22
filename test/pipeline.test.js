@@ -9,6 +9,7 @@ const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'kl-'));
 process.env.DATA_DIR = tmp;
 process.env.FIRECRAWL_API_KEY = 'test';
 process.env.ANTHROPIC_API_KEY = 'test';
+process.env.FIRECRAWL_FULL = 'true';
 const fixture = fs.readFileSync(new URL('./fixtures/2dehands.json', import.meta.url), 'utf8');
 
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: { 'content-type': 'application/json' } });
@@ -34,9 +35,7 @@ globalThis.fetch = async (url, opts = {}) => {
       { shopName: 'Megekko', price: '€ 49,95', shipping: '€ 5,95', shopRating: 4.8, shopReviews: 1724, link: 'https://tweakers.net/clickout/1' },
       { shopName: 'AliExpress', price: '€ 30,00', shipping: 'Gratis', shopRating: 3.6, shopReviews: 12, link: 'https://tweakers.net/clickout/2' },
     ] } } });
-    if (u.includes('vinted') && u.includes('/catalog')) return json({ success: true, data: { json: { items: [
-      { title: 'Ami Paris sweat noir', brand: 'AMI Paris', size: 'L', condition: 'Très bon état', price: '22,00 €', priceInclProtection: '23,80 €', url: 'https://www.vinted.be/items/123-ami' },
-    ] } } });
+    if (u.includes('vinted') && u.includes('/catalog')) return json({ success: true, data: { html: '<div data-testid="grid-item"><img src="https://images1.vinted.net/t/x.webp" alt="Ami Paris sweat noir, Marque: AMI Paris, État: Très bon état, Taille: L, 22.00 €, 23.80 €" class="c" data-testid="product-item-id-123--image--img"><a href="https://www.vinted.be/items/123-ami?referrer=catalog">x</a></div>' } });
     if (u.includes('vinted') && u.includes('/items/')) return json({ success: true, data: { json: { description: 'Porté 2 fois', condition: 'Très bon état', photos: ['https://img/v1.jpg'], price: '22,00 €', priceInclProtection: '23,80 €' } } });
     if (u.includes('amazon')) return json({ success: true, data: { json: { productName: 'Test Product 1TB', imageUrl: 'https://amz/img.jpg' } } });
     return json({ success: true, data: { json: { isProductPage: true, matchesTarget: true, productName: 'x', price: 52.99, inStock: true, shippingCostBelgium: 0 } } });
