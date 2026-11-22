@@ -3,53 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kerstlijst 2026</title>
+  <title>Mijn kerstlijst</title>
+  <meta name="description" content="Mijn verlanglijstje voor Kerstmis, met telkens de beste prijs." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/family.css" />
 </head>
 <body>
-  <header class="top">
-    <div class="wrap top-inner">
-      <div>
-        <p class="eyebrow">Verlanglijstje</p>
-        <h1>Kerst&shy;lijst <span>2026</span></h1>
-        <p class="sub" id="countdown"></p>
-      </div>
-      <div class="summary" id="summary"></div>
-    </div>
+  <div class="snow" aria-hidden="true"></div>
+  <header class="hero">
+    <p class="kicker">Kerstmis 2026</p>
+    <h1>Mijn kerst&shy;lijst</h1>
+    <p class="intro">Fijn dat je even komt kijken! Hieronder vind je wat ik graag zou krijgen, telkens met de voordeligste plek om het te kopen.</p>
+    <p class="countdown" id="countdown"></p>
   </header>
 
   <main class="wrap">
-    <div class="toolbar">
-      <div class="status" id="status">Laden…</div>
-      <div class="filters" role="tablist">
-        <button class="chip active" data-filter="all">Alles</button>
-        <button class="chip" data-filter="new">Nieuw</button>
-        <button class="chip" data-filter="secondhand">Tweedehands</button>
-      </div>
-      <button class="btn" id="runBtn">↻ Nu checken</button>
-    </div>
-    <section id="list" class="list"></section>
-    <p class="foot">
-      De agent zoekt elke ochtend in Benelux-webshops (via Tweakers en rechtstreeks) en op 2dehands, Marktplaats en Vinted.
-      Totaalprijzen zijn inclusief verzending en kopersbescherming; geschatte bedragen staan gemarkeerd met ≈.
-      Controleer bij tweedehands altijd zelf nog de foto's en betaal enkel via het platform.
-    </p>
+    <section id="list" class="grid" aria-live="polite">
+      <p class="loading">Even laden…</p>
+    </section>
   </main>
 
-  <dialog id="dlg">
-    <form method="dialog" id="dlgForm">
-      <h3 id="dlgTitle">Item aanpassen</h3>
-      <div id="dlgBody"></div>
-      <menu>
-        <button value="cancel" class="btn ghost">Annuleren</button>
-        <button value="ok" class="btn">Opslaan</button>
-      </menu>
-    </form>
-  </dialog>
+  <footer class="foot">
+    <p>Prijzen worden elke ochtend bijgewerkt en zijn inclusief verzending.</p>
+    <p class="small">Tweedehands: betaal altijd via de website zelf, dan ben je beschermd.</p>
+  </footer>
 
-  <script src="/app.js" type="module"></script>
+  <script src="/family.js" type="module"></script>
 </body>
 </html>
