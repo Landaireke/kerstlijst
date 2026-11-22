@@ -66,7 +66,8 @@ app.get('/api/debug/probe', async (req, res) => {
   if (!process.env.ADMIN_TOKEN || req.query.token !== process.env.ADMIN_TOKEN) return res.status(401).end();
   const u = String(req.query.u || '');
   const { text, status } = await fetchText(u);
-  const snips = [...text.matchAll(/€\s?\d{1,4}[,.]\d{2}/g)].slice(0, 12).map((m) => text.slice(Math.max(0, m.index - 260), m.index + 40).replace(/\s+/g, ' '));
+  const re = req.query.q ? new RegExp(String(req.query.q), 'g') : /€\s?\d{1,4}[,.]\d{2}/g;
+  const snips = [...text.matchAll(re)].slice(0, 12).map((m) => text.slice(Math.max(0, m.index - 260), m.index + 40).replace(/\s+/g, ' '));
   const out = { u, status, len: text.length, title: text.match(/<title>([^<]*)/i)?.[1] || null, ld: jsonLd(text).map((n) => n['@type']), snips };
   update((db) => ((db.debug = db.debug || {}), (db.debug[u] = out)));
   res.json(out);

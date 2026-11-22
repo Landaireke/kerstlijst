@@ -5,7 +5,12 @@ import { log } from './util.js';
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36';
 
+// Tweakers (DPG Media) toont anders een cookiemuur; dit zijn de functionele toestemmingscookies.
+const SITE_COOKIES = { 'tweakers.net': 'pwv=2; pws=functional' };
+
 export async function fetchText(url, { headers = {}, accept = 'text/html,application/xhtml+xml,*/*' } = {}) {
+  const host = (() => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return ''; } })();
+  if (SITE_COOKIES[host] && !headers.Cookie) headers = { ...headers, Cookie: SITE_COOKIES[host] };
   try {
     const res = await fetch(url, {
       headers: { 'User-Agent': UA, Accept: accept, 'Accept-Language': 'nl-BE,nl;q=0.9,fr;q=0.8,en;q=0.7', ...headers },
