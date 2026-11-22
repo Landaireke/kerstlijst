@@ -131,11 +131,11 @@ export function parseAlt(alt) {
   const parts = decode(alt).split(/,\s+/);
   const out = { title: [], brand: null, condition: null, size: null, prices: [] };
   for (const p of parts) {
-    const kv = p.match(/^(Merk|Marque|Brand|Marke|Staat|État|Etat|Condition|Zustand|Maat|Taille|Size|Größe)\s*:\s*(.+)$/i);
+    const kv = p.match(/^(Merk|Marque|Brand|Marke|Staat|Status|Conditie|État|Etat|Condition|Zustand|Maat|Taille|Size|Größe)\s*:\s*(.+)$/i);
     if (kv) {
       const k = kv[1].toLowerCase();
       if (/merk|marque|brand|marke/.test(k)) out.brand = kv[2];
-      else if (/staat|état|etat|condition|zustand/.test(k)) out.condition = kv[2];
+      else if (/staat|status|conditie|état|etat|condition|zustand/.test(k)) out.condition = kv[2];
       else out.size = kv[2];
     } else if (/^€?\s*\d+[.,]\d{2}\s*€?$/.test(p.trim())) out.prices.push(parsePrice(p));
     else if (!out.brand && !out.condition && !out.size) out.title.push(p);
@@ -158,7 +158,8 @@ export function parseCatalogHtml(html, domain) {
       price: a.prices[0] ?? null,
       priceInclProtection: a.prices[1] ?? null,
       priceType: 'FIXED',
-      condition: a.condition,
+      // zoekopdracht filtert al op Vinted-staat 'nieuw' of 'zeer goed'
+      condition: a.condition || 'Zeer goed of beter (Vinted-filter)',
       size: a.size,
       brand: a.brand,
       location: '',
