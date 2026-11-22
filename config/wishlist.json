@@ -31,11 +31,14 @@
     {
       "id": "amazon-item",
       "type": "new",
-      "name": "Amazon-artikel (wordt herkend bij de eerste run)",
-      "searchQuery": "",
-      "image": "",
-      "sourceUrl": "https://amzn.eu/d/0fV8wuKW",
-      "needsResolve": true
+      "name": "DAREU EK60 HE 8K – 60% magnetisch gaming-toetsenbord (zwart)",
+      "searchQuery": "DAREU EK60 HE zwart",
+      "asin": "B0FBWJ6RJQ",
+      "image": "/img/dareu-ek60.jpg",
+      "sourceUrl": "https://www.amazon.nl/DAREU-EK60-Toetsenbord-nauwkeurigheid-Effect-schakelaars/dp/B0FBWJ6RJQ",
+      "shopUrls": [
+        "https://www.amazon.com.be/-/nl/DAREU-EK60-gaming-toetsenbord-Herhaalbaarheid-nauwkeurigheid/dp/B0FBWJ6RJQ"
+      ]
     },
     {
       "id": "ami-paris",

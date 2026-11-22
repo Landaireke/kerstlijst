@@ -29,6 +29,16 @@ export function offersFromHtml(html, url) {
       url: o.url || url,
     });
   }
+  // Amazon heeft geen schema.org-prijs: lees de hoofdprijs en voorraad uit de pagina
+  if (!offers.length && /amazon\./.test(url)) {
+    const core = html.match(/id="corePrice(?:Display_desktop|_feature|_desktop)_div"[\s\S]{0,4000}?class="a-offscreen">([^<]+)</) || html.match(/class="a-price[^"]*priceToPay[^"]*"[\s\S]{0,600}?class="a-offscreen">([^<]+)</);
+    const price = core ? parsePrice(core[1]) : null;
+    if (price != null) {
+      const avail = html.match(/id="availability"[\s\S]{0,600}?<span[^>]*>\s*([^<]+)</)?.[1]?.trim() || '';
+      const seller = html.match(/id="sellerProfileTriggerId"[^>]*>([^<]+)</)?.[1]?.trim() || null;
+      offers.push({ price, aggregate: false, seller, inStock: !/niet beschikbaar|currently unavailable|nicht verfügbar|indisponible/i.test(avail), shipping: null, url });
+    }
+  }
   return { name, image: typeof image === 'string' ? image : null, offers };
 }
 

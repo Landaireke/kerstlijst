@@ -38,13 +38,13 @@ export async function search(query, { limit = 10, country = 'BE', location = 'Be
 
 /** Pagina lezen als ruwe tekst (bv. JSON-API's). */
 export async function scrapeRaw(url, { maxAge = 0 } = {}) {
-  const json = await post('/scrape', { url, formats: ['rawHtml'], maxAge, proxy: 'auto' });
+  const json = await post('/scrape', { url, formats: ['rawHtml'], maxAge, proxy: 'basic', location: { country: 'BE', languages: ['nl-BE'] } });
   return json.data?.rawHtml || '';
 }
 
 /** Pagina als HTML, beperkt tot bepaalde elementen (goedkoop: 1 credit). */
 export async function scrapeHtml(url, includeTags = [], { maxAge = 0 } = {}) {
-  const json = await post('/scrape', { url, formats: ['html'], includeTags, onlyMainContent: false, maxAge, location: { country: 'BE', languages: ['nl-BE'] } });
+  const json = await post('/scrape', { url, formats: ['html'], includeTags, onlyMainContent: false, maxAge, proxy: 'basic', location: { country: 'BE', languages: ['nl-BE'] } });
   return json.data?.html || '';
 }
 

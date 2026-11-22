@@ -17,8 +17,12 @@ export async function fetchText(url, { headers = {}, accept = 'text/html,applica
       redirect: 'follow',
       signal: AbortSignal.timeout(25_000),
     });
-    if (res.ok) return { text: await res.text(), status: res.status, headers: res.headers };
-    log(`fetch ${res.status} ${url.slice(0, 90)}`);
+    if (res.ok) {
+      const text = await res.text();
+      // Cookiemuur of robotcheck = niet echt gelukt → via Firecrawl proberen
+      if (!/Privacy Gate|Robot Check|validateCaptcha|api-services-support@amazon/i.test(text.slice(0, 20000))) return { text, status: res.status, headers: res.headers };
+      log(`geblokkeerd (muur/captcha) ${url.slice(0, 90)}`);
+    } else log(`fetch ${res.status} ${url.slice(0, 90)}`);
   } catch (e) {
     log(`fetch fout ${url.slice(0, 90)}: ${e.message}`);
   }

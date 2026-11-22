@@ -47,3 +47,11 @@ test('Vinted zoekpagina (echte HTML) uitlezen', () => {
   assert.equal(nl.size, 'XL');
   assert.deepEqual(nl.prices, [20, 21.7]);
 });
+
+test('Amazon-prijs uit HTML', () => {
+  const html = '<div id="corePriceDisplay_desktop_div"><span class="a-price priceToPay"><span class="a-offscreen">€43,34</span></span></div><div id="availability"><span class="a-size-medium a-color-success"> Op voorraad </span></div><a id="sellerProfileTriggerId">DAREU Store</a>';
+  const r = offersFromHtml(html, 'https://www.amazon.nl/dp/B0FBWJ6RJQ');
+  assert.equal(r.offers[0].price, 43.34);
+  assert.equal(r.offers[0].inStock, true);
+  assert.equal(r.offers[0].seller, 'DAREU Store');
+});
