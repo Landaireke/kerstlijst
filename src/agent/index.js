@@ -155,6 +155,12 @@ export async function runAll({ only } = {}) {
       try {
         const r = item.type === 'secondhand' ? await runSecondhand(item, db) : await runNew(item, db);
         const prev = db.results[item.id];
+        // Gratis modus: lukt een bron vandaag niet, toon dan de laatst gekende prijzen i.p.v. niets
+        if (item.type === 'new' && !r.offers?.length && prev?.offers?.length) {
+          const since = prev.staleSince || prev.checkedAt;
+          Object.assign(r, { best: prev.best, offers: prev.offers, image: r.image || prev.image, staleSince: since });
+          r.warnings = [`Vandaag geen nieuwe prijzen kunnen ophalen; dit zijn de laatst gekende prijzen (${new Date(since).toLocaleDateString('nl-BE')}). Klik door om de actuele prijs te zien.`, ...(r.warnings || []).filter((w) => !w.startsWith('Niet bereikbaar'))];
+        }
         const today = started.toISOString().slice(0, 10);
         const history = (prev?.history || []).filter((h) => h.date !== today);
         if (r.best?.total != null) history.push({ date: today, total: r.best.total, shop: r.best.shop || r.best.source });

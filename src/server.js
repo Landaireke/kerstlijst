@@ -6,7 +6,6 @@ import { fileURLToPath } from 'node:url';
 import { init, load, update, getItems } from './db.js';
 import { runAll, isRunning } from './agent/index.js';
 import { log } from './agent/util.js';
-import { fetchText, jsonLd } from './agent/fetcher.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const app = express();
@@ -59,18 +58,6 @@ app.get('/api/img', async (req, res) => {
   } catch {
     res.status(400).end();
   }
-});
-
-// Diagnose: kan de server deze pagina gratis ophalen? (alleen met ADMIN_TOKEN)
-app.get('/api/debug/probe', async (req, res) => {
-  if (!process.env.ADMIN_TOKEN || req.query.token !== process.env.ADMIN_TOKEN) return res.status(401).end();
-  const u = String(req.query.u || '');
-  const { text, status } = await fetchText(u);
-  const re = req.query.q ? new RegExp(String(req.query.q), 'g') : /€\s?\d{1,4}[,.]\d{2}/g;
-  const snips = [...text.matchAll(re)].slice(0, 12).map((m) => text.slice(Math.max(0, m.index - 260), m.index + 40).replace(/\s+/g, ' '));
-  const out = { u, status, len: text.length, title: text.match(/<title>([^<]*)/i)?.[1] || null, ld: jsonLd(text).map((n) => n['@type']), snips };
-  update((db) => ((db.debug = db.debug || {}), (db.debug[u] = out)));
-  res.json(out);
 });
 
 app.get('/api/health', (_req, res) => res.json({ ok: true, running: isRunning() }));
