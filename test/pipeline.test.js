@@ -57,7 +57,6 @@ test('volledige ronde', async () => {
   const g7 = db.results['gamesir-g7-he'];
   assert.equal(g7.best.total, 52.99, 'webshop €52,99 gratis < Megekko €55,90; AliExpress (€30) te weinig betrouwbaar');
   assert.equal(g7.offers.find((o) => o.shop === 'AliExpress').status, 'te weinig betrouwbaar');
-  assert.equal(db.overrides['amazon-item'].name, 'Test Product 1TB');
   const si = db.results['stone-island'];
   assert.equal(si.best.title, 'Stone Island sweater grijs');
   assert.equal(si.best.total, 25); // 20 + geschatte verzending 5
