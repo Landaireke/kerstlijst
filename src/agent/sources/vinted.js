@@ -1,6 +1,7 @@
 // Vinted (BE + NL). Vinted heeft geen publieke API; we lezen de zoekpagina via Firecrawl.
 import * as fc from '../firecrawl.js';
 import { parsePrice, log } from '../util.js';
+import { fetchText } from '../fetcher.js';
 
 const DOMAINS = ['www.vinted.be', 'www.vinted.nl'];
 // Vinted-statussen: 6 = nieuw met prijskaartje, 1 = nieuw zonder, 2 = zeer goed
@@ -56,8 +57,74 @@ const DETAIL_SCHEMA = {
   },
 };
 
+// ---- Gratis modus: Vinted's eigen zoek-API met een sessiecookie van de homepage ----
+const sessions = {};
+async function session(domain) {
+  if (sessions[domain]) return sessions[domain];
+  const { headers } = await fetchText(`https://${domain}/`);
+  const cookies = (headers.getSetCookie?.() || []).map((c) => c.split(';')[0]).filter(Boolean);
+  sessions[domain] = cookies.join('; ');
+  return sessions[domain];
+}
+
+export function apiUrl(domain, query, maxPrice) {
+  const p = new URLSearchParams({ search_text: query, price_to: String(maxPrice), currency: 'EUR', order: 'newest_first', per_page: '48', catalog_ids: '5' });
+  STATUS.forEach((s) => p.append('status_ids[]', s));
+  return `https://${domain}/api/v2/catalog/items?${p.toString()}`;
+}
+
+const STATUS_LABEL = { 6: 'Nieuw met prijskaartje', 1: 'Nieuw zonder prijskaartje', 2: 'Zeer goed', 3: 'Goed', 4: 'Redelijk' };
+
+export function normalizeApiItem(it, domain) {
+  const price = parsePrice(it.price?.amount ?? it.price);
+  const total = parsePrice(it.total_item_price?.amount ?? it.total_item_price);
+  return {
+    id: 'vinted:' + it.id,
+    source: 'vinted',
+    title: it.title,
+    description: it.description || '',
+    price,
+    priceInclProtection: total ?? null,
+    priceType: 'FIXED',
+    condition: it.status || STATUS_LABEL[it.status_id] || null,
+    size: it.size_title || null,
+    brand: it.brand_title || null,
+    location: '',
+    photos: [it.photo?.full_size_url || it.photo?.url, ...(it.photos || []).map((p) => p.full_size_url || p.url)].filter(Boolean).filter((v, i, a) => a.indexOf(v) === i).slice(0, 6),
+    url: it.url?.startsWith('http') ? it.url : `https://${domain}/items/${it.id}`,
+    seller: it.user?.login || '',
+    canShip: true,
+    pickupOnly: false,
+    needsDetail: false,
+  };
+}
+
+async function searchDirect(item) {
+  const out = new Map();
+  for (const domain of DOMAINS) {
+    try {
+      const cookie = await session(domain);
+      for (const q of item.searchQueries.slice(0, 2)) {
+        const { text, status } = await fetchText(apiUrl(domain, q, item.maxPrice), { headers: { Cookie: cookie }, accept: 'application/json' });
+        if (!text) {
+          log(`vinted ${domain}: geen antwoord (${status})`);
+          break;
+        }
+        const json = JSON.parse(text);
+        for (const it of json.items || []) {
+          const n = normalizeApiItem(it, domain);
+          if (n.price != null && n.price <= item.maxPrice) out.set(n.id, n);
+        }
+      }
+    } catch (e) {
+      log(`vinted ${domain} direct: ${e.message}`);
+    }
+  }
+  return [...out.values()];
+}
+
 export async function search(item) {
-  if (!fc.hasFirecrawl()) return [];
+  if (!fc.hasFirecrawl()) return searchDirect(item);
   const out = new Map();
   for (const domain of DOMAINS) {
     for (const q of item.searchQueries.slice(0, 2)) {

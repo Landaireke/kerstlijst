@@ -11,7 +11,17 @@ Een verlanglijst-app met een **agent die elke ochtend om 07:00** (Brusselse tijd
 | Stone Island crewneck, grijs met badge | tweedehands, ≤ €23 | idem |
 | Fear of God Essentials hoodie, light heather grey | tweedehands, ≤ €23 | idem |
 
-## Wat de agent per item doet
+## Gratis modus (standaard)
+
+Zonder API-sleutels werkt alles gratis:
+- **Nieuw**: laagste prijs van Tweakers + de vaste shoppagina's uit `config/wishlist.json` (`shopUrls`), rechtstreeks uitgelezen.
+- **Tweedehands**: 2dehands, Marktplaats en Vinted via hun eigen zoekfunctie; filter op merk, staat (zeer goed+), kindermaat en gebreken in de beschrijving.
+- Geen automatische fotocontrole: kijk zelf de foto's na (ze staan in de app).
+- Opslag in Supabase (gratis), ochtendronde gestart door Supabase pg_cron.
+
+Met `FIRECRAWL_API_KEY` en `ANTHROPIC_API_KEY` (optioneel, betaald) zoekt de agent breder en controleert Claude ook de foto's.
+
+## Wat de agent per item doet (met sleutels)
 
 **Nieuwe producten**
 1. Leest de Tweakers-prijsvergelijking (prijs, verzendkosten, shopreviews) en zoekt daarnaast breed naar Benelux-webshops.

@@ -4,6 +4,7 @@ import * as tweakers from './sources/tweakers.js';
 import * as webshops from './sources/webshops.js';
 import * as marketplace from './sources/marketplace.js';
 import * as vinted from './sources/vinted.js';
+import * as direct from './sources/direct.js';
 import { assessShop } from './trust.js';
 import { textCheck, visionCheck, verdict, normalizeCondition, CONDITION_LABEL } from './condition.js';
 import { secondhandCost } from './costs.js';
@@ -31,10 +32,18 @@ async function runNew(item, db) {
     }
   }
 
-  const [tw, ws] = await Promise.all([
-    tweakers.getOffers(item).catch((e) => (warnings.push(`Tweakers: ${e.message}`), { offers: [] })),
-    webshops.getOffers(item, [item.sourceUrl, item.resolvedUrl]).catch((e) => (warnings.push(`Webshops: ${e.message}`), { offers: [] })),
-  ]);
+  let tw, ws;
+  if (hasFirecrawl()) {
+    [tw, ws] = await Promise.all([
+      tweakers.getOffers(item).catch((e) => (warnings.push(`Tweakers: ${e.message}`), { offers: [] })),
+      webshops.getOffers(item, [item.sourceUrl, item.resolvedUrl]).catch((e) => (warnings.push(`Webshops: ${e.message}`), { offers: [] })),
+    ]);
+  } else {
+    // Gratis modus: Tweakers + vaste shoppagina's rechtstreeks uitlezen
+    tw = { offers: [] };
+    ws = await direct.getOffers(item).catch((e) => (warnings.push(`Shops: ${e.message}`), { offers: [] }));
+    if (ws.failed?.length) warnings.push(`Niet bereikbaar vandaag: ${ws.failed.join(', ')}`);
+  }
 
   // Dubbels (zelfde shop via Tweakers én rechtstreeks) samenvoegen: rechtstreekse pagina wint, reviews van Tweakers blijven
   const byShop = new Map();
@@ -108,7 +117,7 @@ async function runSecondhand(item, db) {
       warnings.push(`Controle mislukt voor ${l.url}: ${e.message}`);
     }
   }
-  if (!hasClaude()) warnings.push('Geen ANTHROPIC_API_KEY: foto’s worden niet gecontroleerd op model en vlekken.');
+  if (!hasClaude()) warnings.push('Gratis modus: de agent filtert op opgegeven staat en beschrijving. Kijk zelf de foto’s na op model, vlekken en echtheid.');
 
   const approved = checked.filter((l) => l.approved).sort((a, b) => a.total - b.total);
   const best = approved.find((l) => l.fakeRisk !== 'medium') || approved[0] || null;
@@ -138,7 +147,6 @@ export async function runAll({ only } = {}) {
   const db = load();
   const log_ = [];
   try {
-    if (!hasFirecrawl()) throw new Error('FIRECRAWL_API_KEY ontbreekt – de agent kan niet zoeken.');
     const items = getItems().filter((i) => !only || i.id === only);
     for (const item of items) {
       log(`▶ ${item.name}`);

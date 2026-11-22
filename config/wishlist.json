@@ -8,7 +8,11 @@
       "mpn": "WDBMPH5120ANC-WCSN",
       "image": "https://thecolorway.net/media/xbox/hires/xbox-wd-black-c50-512gb-expansion-card.webp",
       "sourceUrl": "https://thecolorway.net/products/xbox-wd-black-c50-512gb-expansion-card?lang=fr&country=BE&currency=EUR",
-      "tweakersUrl": "https://tweakers.net/pricewatch/1961380/wd_black-c50-expansion-card-for-xbox-512gb.html"
+      "tweakersUrl": "https://tweakers.net/pricewatch/1961380/wd_black-c50-expansion-card-for-xbox-512gb.html",
+      "shopUrls": [
+        "https://www.nl.fnac.be/WD-Black-C50-Expansion-Card-for-XBOX-Vaste-schijf-512-GB-extern-draagbaar/a18444970",
+        "https://www.amazon.com.be/-/en/WD_BLACK-Expansion-Officially-recovery-Architecture/dp/B0C44B1VSH"
+      ]
     },
     {
       "id": "gamesir-g7-he",
@@ -19,7 +23,10 @@
       "image": "https://media.s-bol.com/q3nW1z3LqE4y/Wn5GvKg/550x490.jpg",
       "sourceUrl": "https://www.bol.com/be/nl/p/gamesir-gamesir-g7-he-black-draadloze-gamecontroller/9300000194768188/",
       "tweakersUrl": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
-      "note": "Let op: ondanks 'draadloos' in de bol-URL is de G7 HE een bedrade controller."
+      "note": "Let op: ondanks 'draadloos' in de bol-URL is de G7 HE een bedrade controller.",
+      "shopUrls": [
+        "https://www.amazon.nl/GameSir-Controller-Hall-effect-gelicentieerd-gaming-controller/dp/B0D8KQZPZ2"
+      ]
     },
     {
       "id": "amazon-item",
