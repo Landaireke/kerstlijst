@@ -7,9 +7,10 @@ function key() {
   return k;
 }
 
-async function post(endpoint, body, { retries = 2 } = {}) {
+async function post(endpoint, body, { retries = 3 } = {}) {
   let lastErr;
   for (let i = 0; i <= retries; i++) {
+    let wait = 2000 * (i + 1);
     try {
       const res = await fetch(`${BASE}${endpoint}`, {
         method: 'POST',
@@ -18,13 +19,19 @@ async function post(endpoint, body, { retries = 2 } = {}) {
         signal: AbortSignal.timeout(120_000),
       });
       const json = await res.json().catch(() => ({}));
+      if (res.status === 429) {
+        // gratis plan: weinig verzoeken per minuut → wachten zoals Firecrawl vraagt
+        const secs = Number(String(json.error || '').match(/retry after (\d+)s/)?.[1] || 20);
+        wait = (secs + 2) * 1000;
+        throw new Error(`Firecrawl ${endpoint} 429 (wacht ${secs}s)`);
+      }
       if (!res.ok || json.success === false) {
         throw new Error(`Firecrawl ${endpoint} ${res.status}: ${json.error || res.statusText}`);
       }
       return json;
     } catch (e) {
       lastErr = e;
-      if (i < retries) await new Promise((r) => setTimeout(r, 2000 * (i + 1)));
+      if (i < retries) await new Promise((r) => setTimeout(r, wait));
     }
   }
   throw lastErr;
