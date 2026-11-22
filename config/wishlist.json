@@ -43,15 +43,16 @@
     {
       "id": "ami-paris",
       "type": "secondhand",
-      "name": "Ami Paris 'Ami de Cœur' sweater – zwart, groot hartlogo",
+      "name": "Ami Paris 'Ami de Cœur' trui – zwart of grijs, hartlogo",
       "searchQueries": [
         "ami paris trui",
-        "ami de coeur sweater",
-        "ami paris sweater zwart"
+        "ami de coeur",
+        "ami paris sweater",
+        "ami paris pull"
       ],
       "maxPrice": 23,
       "referenceImage": "/img/ref-ami.jpg",
-      "modelDescription": "Zwarte crewneck sweatshirt van Ami Paris met GROOT 'Ami de Cœur' logo (hart boven een A) op de linkerborst, wit/grijs omrand met dubbele contourlijn, zoals een varsity-patch. Geen klein geborduurd hartje, geen andere kleur, geen hoodie, geen gebreide trui.",
+      "modelDescription": "Zwarte of grijze trui/sweater van Ami Paris met het 'Ami de Cœur'-logo (hart boven een A) op de borst: rood, grijs, wit of zwart hartje, klein of groot.",
       "minCondition": "very_good",
       "brandMatch": [
         "ami paris",
@@ -70,70 +71,95 @@
           "sweat",
           "crewneck",
           "pull",
-          "sweatshirt"
+          "sweatshirt",
+          "jumper",
+          "knit",
+          "coeur",
+          "cœur"
         ]
       ],
       "titleExclude": [
         "wit",
+        "witte",
         "white",
         "blanc",
-        "grijs",
-        "grey",
-        "gray",
-        "gris",
-        "rood",
-        "red",
-        "rouge",
         "groen",
+        "groene",
         "green",
         "vert",
         "blauw",
+        "blauwe",
         "blue",
         "bleu",
+        "navy",
+        "marine",
         "beige",
         "creme",
         "crème",
         "cream",
-        "navy",
-        "knit",
-        "gebreid",
-        "wol",
-        "wool",
+        "ecru",
+        "écru",
+        "bruin",
+        "bruine",
+        "brown",
+        "camel",
+        "roze",
+        "pink",
+        "rose",
+        "geel",
+        "yellow",
+        "oranje",
+        "orange",
+        "paars",
+        "purple",
+        "bordeaux",
         "vest",
         "cardigan",
         "hoodie",
         "capuchon",
         "t-shirt",
         "tshirt",
-        "klein hart",
-        "small heart",
-        "petit coeur",
-        "rode",
-        "groene",
-        "blauwe",
-        "grijze",
-        "witte"
+        "polo",
+        "jas",
+        "jacket",
+        "kids",
+        "junior",
+        "enfant"
       ],
-      "color": "black",
+      "color": [
+        "black",
+        "grey"
+      ],
       "clip": {
-        "target": "a black crewneck sweatshirt with a large white outlined heart logo with the letter A on the chest",
+        "targets": [
+          "a black sweater with a small red heart logo on the chest",
+          "a black sweater with a heart logo with the letter A on the chest",
+          "a grey sweater with a small red heart logo on the chest",
+          "a grey sweater with a heart logo with the letter A on the chest"
+        ],
         "others": [
-          "a white sweatshirt",
-          "a grey sweatshirt",
-          "a black sweatshirt with a small red heart",
-          "a plain black sweatshirt without logo",
+          "a plain sweater without any logo",
+          "a sweater with a text logo",
+          "a white sweater",
+          "a navy blue sweater",
+          "a beige sweater",
+          "a green sweater",
           "a hoodie with a hood",
-          "a knitted wool sweater",
           "a t-shirt",
           "a jacket",
-          "a stuffed toy",
-          "a fabric patch or badge on a table",
-          "a pair of trousers",
-          "a cap or hat",
+          "a cardigan with buttons",
           "a child wearing clothes",
-          "a brown sweatshirt",
-          "a dark grey sweatshirt"
-        ]
+          "a stuffed toy"
+        ],
+        "mustShow": {
+          "yes": "a sweater with a heart shaped logo embroidered on the chest",
+          "no": [
+            "a plain sweater with no logo",
+            "a sweater with a printed text logo",
+            "a sweater with a large graphic print"
+          ]
+        },
+        "minSimilarity": 0.6
       },
       "sizes": [
         "L",
@@ -141,8 +167,17 @@
       ],
       "colorWords": [
         "zwart",
+        "zwarte",
         "black",
-        "noir"
+        "noir",
+        "grijs",
+        "grijze",
+        "grey",
+        "gray",
+        "gris",
+        "heather",
+        "anthracite",
+        "antraciet"
       ]
     },
     {

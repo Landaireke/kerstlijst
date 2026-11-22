@@ -9,7 +9,7 @@ const NICE = {
   'wd-black-c50': { title: 'Opslaguitbreiding voor de Xbox', sub: 'WD_BLACK C50 · 512 GB' },
   'gamesir-g7-he': { title: 'Xbox-controller', sub: 'GameSir G7 HE · zwart' },
   'amazon-item': { title: 'Gaming-toetsenbord', sub: 'DAREU EK60 HE · zwart' },
-  'ami-paris': { title: 'Ami Paris-trui', sub: 'Zwart met groot hartlogo · maat L of XL' },
+  'ami-paris': { title: 'Ami Paris-trui', sub: 'Zwart of grijs met hartlogo · maat L of XL' },
   'stone-island': { title: 'Stone Island-trui', sub: 'Grijs met badge · maat L of XL' },
   'essentials-hoodie': { title: 'Essentials-hoodie', sub: 'Fear of God · lichtgrijs · maat L of XL' },
 };

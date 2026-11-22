@@ -87,6 +87,7 @@ export async function colorProfile(buf) {
 
 export function colorMatches(profile, want) {
   if (!want || !profile) return null;
+  if (Array.isArray(want)) return want.some((w) => colorMatches(profile, w));
   if (want === 'black') return profile.black >= 0.35 && profile.colored < 0.25 && (profile.warm || 0) < 0.25;
   if (want === 'grey') return profile.grey + profile.white * 0.3 >= 0.5 && profile.colored < 0.15 && (profile.warm || 0) < 0.15 && profile.black < 0.4;
   return null;
@@ -107,7 +108,10 @@ export async function checkPhotos(item, listing) {
   const photos = (listing.photos || []).slice(0, 3);
   if (!photos.length) return { isTarget: false, summary: 'Geen foto’s', method: 'none' };
   const model = await loadClip();
-  const labels = [item.clip?.target, ...(item.clip?.others || [])].filter(Boolean);
+  const targets = item.clip?.targets || [item.clip?.target].filter(Boolean);
+  const labels = [...targets, ...(item.clip?.others || [])];
+  const must = item.clip?.mustShow;
+  const mustLabels = must ? [must.yes, ...must.no] : null;
   let best = { similarity: 0, labelProb: 0, label: null, colorOk: null };
 
   for (const url of photos) {
@@ -134,26 +138,36 @@ export async function checkPhotos(item, listing) {
         const top = probs.indexOf(Math.max(...probs));
         r.label = labels[top];
         r.labelProb = probs[top];
-        r.targetProb = probs[0];
+        r.targetProb = probs.slice(0, targets.length).reduce((a, b) => a + b, 0);
+        if (mustLabels) {
+          // Extra check: is het verplichte detail (bv. het Ami-hartje) zichtbaar?
+          const me = await textEmbeddings(mustLabels);
+          const ml = me.map((t) => 100 * dot(emb, t));
+          const mm = Math.max(...ml);
+          const mexp = ml.map((l) => Math.exp(l - mm));
+          r.mustProb = mexp[0] / mexp.reduce((a, b) => a + b, 0);
+        }
       }
-      const score = (r.targetProb ?? 0) + (r.similarity ?? 0) + (r.colorOk ? 0.2 : 0);
-      const bestScore = (best.targetProb ?? 0) + (best.similarity ?? 0) + (best.colorOk ? 0.2 : 0);
+      const score = (r.targetProb ?? 0) + (r.mustProb ?? 0) + (r.similarity ?? 0) + (r.colorOk ? 0.2 : 0);
+      const bestScore = (best.targetProb ?? 0) + (best.mustProb ?? 0) + (best.similarity ?? 0) + (best.colorOk ? 0.2 : 0);
       if (score >= bestScore) best = r;
     } catch (e) {
       log('fotocheck:', e.message);
     }
   }
 
-  const simMin = Number(process.env.CLIP_MIN_SIMILARITY || 0.72);
+  const simMin = item.clip?.minSimilarity ?? Number(process.env.CLIP_MIN_SIMILARITY || 0.72);
   let isTarget;
   let summary;
   if (best.similarity != null) {
-    const labelOk = best.label === labels[0];
+    const labelOk = targets.includes(best.label);
     // Het model moet de foto herkennen als het gezochte model; alleen bij bijna-identieke foto's (≥ 90%) volstaat gelijkenis,
     // en nooit als een expliciet ander model (bv. "zonder badge") duidelijk wint.
     isTarget = (labelOk && best.similarity >= simMin - 0.1) || (best.similarity >= 0.9 && (best.targetProb ?? 0) >= 0.25);
     if (best.colorOk === false) isTarget = false;
-    summary = `${Math.round(best.similarity * 100)}% gelijkenis met gezocht model · herkend als “${best.label}”${best.colorOk === false ? ' · verkeerde kleur' : ''}`;
+    const mustFail = must && (best.mustProb ?? 0) < 0.5;
+    if (mustFail) isTarget = false;
+    summary = `${Math.round(best.similarity * 100)}% gelijkenis met gezocht model · herkend als “${best.label}”${best.colorOk === false ? ' · verkeerde kleur' : ''}${must ? (mustFail ? ' · logo niet herkend' : ` · logo herkend (${Math.round(best.mustProb * 100)}%)`) : ''}`;
   } else {
     isTarget = best.colorOk !== false;
     summary = best.colorOk === false ? 'Kleur komt niet overeen' : best.colorOk ? 'Kleur komt overeen (geen beeldmodel beschikbaar)' : 'Foto’s niet te beoordelen';
