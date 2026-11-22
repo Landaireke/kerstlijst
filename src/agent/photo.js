@@ -146,7 +146,9 @@ export async function checkPhotos(item, listing) {
   let summary;
   if (best.similarity != null) {
     const labelOk = best.label === labels[0];
-    isTarget = (labelOk && best.similarity >= simMin - 0.07) || best.similarity >= simMin + 0.08;
+    // Het model moet de foto herkennen als het gezochte model; alleen bij bijna-identieke foto's (≥ 90%) volstaat gelijkenis,
+    // en nooit als een expliciet ander model (bv. "zonder badge") duidelijk wint.
+    isTarget = (labelOk && best.similarity >= simMin - 0.1) || (best.similarity >= 0.9 && (best.targetProb ?? 0) >= 0.25);
     if (best.colorOk === false) isTarget = false;
     summary = `${Math.round(best.similarity * 100)}% gelijkenis met gezocht model · herkend als “${best.label}”${best.colorOk === false ? ' · verkeerde kleur' : ''}`;
   } else {
