@@ -67,25 +67,28 @@ export async function colorProfile(buf) {
   const { width, height } = await img.metadata();
   const crop = { left: Math.round(width * 0.3), top: Math.round(height * 0.3), width: Math.round(width * 0.4), height: Math.round(height * 0.4) };
   const { data, info } = await img.extract(crop).resize(48, 48, { fit: 'fill' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  let black = 0, grey = 0, colored = 0, white = 0;
+  let black = 0, grey = 0, colored = 0, white = 0, warm = 0;
   for (let i = 0; i < data.length; i += info.channels) {
     const [r, g, b] = [data[i], data[i + 1], data[i + 2]];
     const max = Math.max(r, g, b), min = Math.min(r, g, b);
     const sat = max === 0 ? 0 : (max - min) / max;
     const lum = 0.299 * r + 0.587 * g + 0.114 * b;
-    if (sat > 0.28 && max > 60) colored++;
-    else if (lum < 60) black++;
-    else if (lum > 225) white++;
-    else grey++;
+    if (lum < 55 && (sat < 0.35 || max < 30)) black++;
+    else if (lum < 55) colored++;
+    else if (sat > 0.28 && max > 60) colored++;
+    else if (r - b > 16 && sat > 0.08) warm++; // beige, bruin, crème, camel
+    else if (lum > 232 && sat < 0.08) white++;
+    else if (sat < 0.12) grey++;
+    else colored++;
   }
   const n = data.length / info.channels;
-  return { black: black / n, grey: grey / n, white: white / n, colored: colored / n };
+  return { black: black / n, grey: grey / n, white: white / n, colored: colored / n, warm: warm / n };
 }
 
 export function colorMatches(profile, want) {
   if (!want || !profile) return null;
-  if (want === 'black') return profile.black >= 0.35 && profile.colored < 0.3;
-  if (want === 'grey') return profile.grey + profile.white * 0.5 >= 0.45 && profile.colored < 0.25 && profile.black < 0.45;
+  if (want === 'black') return profile.black >= 0.35 && profile.colored < 0.25 && (profile.warm || 0) < 0.25;
+  if (want === 'grey') return profile.grey + profile.white * 0.3 >= 0.5 && profile.colored < 0.15 && (profile.warm || 0) < 0.15 && profile.black < 0.4;
   return null;
 }
 

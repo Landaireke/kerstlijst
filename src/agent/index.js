@@ -140,6 +140,22 @@ async function runSecondhand(item, db) {
   }
   if (!hasClaude()) warnings.push('Gratis modus: foto’s worden lokaal vergeleken met het gezochte model (vorm, logo, kleur). Vlekken en echtheid kun je het best zelf nog even nakijken.');
 
+  // Laatste controle voor Vinted-kandidaten: de beschrijving lezen (kleur, nep, gebreken)
+  for (const l of checked.filter((x) => x.approved && x.source === 'vinted' && !x.description)) {
+    try {
+      l.description = await vinted.fetchDescription(l);
+      const flags = textCheck(l);
+      const lower = l.description.toLowerCase();
+      const badColor = (item.titleExclude || []).find((w) => new RegExp(`(^|[^a-zà-ÿ])${w.toLowerCase()}([^a-zà-ÿ]|$)`).test(lower) && (item.colorWords || []).every((c) => !lower.includes(c.toLowerCase())));
+      const problems = [...flags.filter((f) => f.type !== 'kids' || true).map((f) => f.text), ...(badColor ? [`Beschrijving: "${badColor}"`] : [])];
+      if (problems.length) {
+        l.approved = false;
+        l.reasons = [...(l.reasons || []), ...problems];
+      }
+    } catch (e) {
+      log('beschrijving ophalen mislukt:', e.message);
+    }
+  }
   const approved = checked.filter((l) => l.approved).sort((a, b) => a.total - b.total);
   const best = approved.find((l) => l.fakeRisk !== 'medium') || approved[0] || null;
   for (const l of checked) l.status = l === best ? 'best' : l.approved ? 'alternatief' : 'afgekeurd';

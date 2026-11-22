@@ -261,3 +261,11 @@ export async function enrich(listing) {
     needsDetail: false,
   };
 }
+
+/** Beschrijving van een advertentie ophalen (1 credit): Vinted zet die in og:description. */
+export async function fetchDescription(listing) {
+  const { fetchText, metaContent } = await import('../fetcher.js');
+  const { text } = await fetchText(listing.url);
+  if (!text) return '';
+  return (metaContent(text, 'og:description') || '').replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+}
