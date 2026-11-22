@@ -68,11 +68,6 @@
           "crewneck",
           "pull",
           "sweatshirt"
-        ],
-        [
-          "zwart",
-          "black",
-          "noir"
         ]
       ],
       "titleExclude": [
@@ -133,6 +128,11 @@
       "sizes": [
         "L",
         "XL"
+      ],
+      "colorWords": [
+        "zwart",
+        "black",
+        "noir"
       ]
     },
     {
@@ -167,13 +167,6 @@
           "pull",
           "felpa",
           "sweatshirt"
-        ],
-        [
-          "grijs",
-          "grey",
-          "gray",
-          "gris",
-          "grigio"
         ]
       ],
       "titleExclude": [
@@ -228,6 +221,13 @@
       "sizes": [
         "L",
         "XL"
+      ],
+      "colorWords": [
+        "grijs",
+        "grey",
+        "gray",
+        "gris",
+        "grigio"
       ]
     },
     {
@@ -259,15 +259,6 @@
           "hooded",
           "capuchon",
           "sweat à capuche"
-        ],
-        [
-          "grijs",
-          "grey",
-          "gray",
-          "heather",
-          "oatmeal",
-          "gris",
-          "light"
         ]
       ],
       "titleExclude": [
@@ -319,6 +310,15 @@
       "sizes": [
         "L",
         "XL"
+      ],
+      "colorWords": [
+        "grijs",
+        "grey",
+        "gray",
+        "heather",
+        "oatmeal",
+        "gris",
+        "light"
       ]
     }
   ]

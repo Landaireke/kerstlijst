@@ -18,7 +18,7 @@ let running = false;
 export const isRunning = () => running;
 
 const minTrust = () => Number(process.env.MIN_TRUST_SCORE || 65);
-const maxVision = () => Number(process.env.MAX_VISION_CHECKS_PER_ITEM || 8);
+const maxVision = () => Number(process.env.MAX_VISION_CHECKS_PER_ITEM || 12);
 
 // ---------- Nieuwe producten ----------
 async function runNew(item, db) {
@@ -97,6 +97,8 @@ async function runSecondhand(item, db) {
     const ruleFail = ruleCheck(item, l);
     const sizeLetter = normalizeSize(l.size, l.title, l.description);
     l.sizeLetter = sizeLetter;
+    // Kleur niet in de tekst? Dan moet de foto de kleur bevestigen.
+    l.needsColorPhoto = Boolean(item.colorWords) && !item.colorWords.some((w) => hay.includes(w.toLowerCase()) || (l.color || '').toLowerCase().includes(w.toLowerCase()));
     const fakeFlag = flags.find((f) => f.type === 'fake');
     if (!brandOk) rejected.push({ ...l, reasons: ['Ander merk'] });
     else if (fakeFlag) rejected.push({ ...l, reasons: [fakeFlag.text] });
@@ -125,6 +127,7 @@ async function runSecondhand(item, db) {
         v.reasons = v.reasons.filter((r) => !/geen fotocheck/.test(r));
         if (normalizeCondition(l.condition) === 'unknown') v.reasons.push('Staat niet vermeld');
         if (!photo.isTarget) v.reasons.push(`Foto’s: ${photo.summary}`);
+        else if (l.needsColorPhoto && photo.colorOk !== true) v.reasons.push('Kleur niet vermeld en niet bevestigd op foto');
         v.approved = v.reasons.length === 0;
       }
       const cost = secondhandCost(l);
