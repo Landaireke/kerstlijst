@@ -7,7 +7,7 @@ export function normalizeCondition(c) {
   const s = c.toLowerCase();
   if (/(met|avec).*(prijskaart|étiquette|label|tags?)|with tags/.test(s)) return 'new_tags';
   if (/^nieuw|^neuf|^new|zonder prijskaart|sans étiquette/.test(s)) return 'new';
-  if (/zo goed als nieuw|zeer goed|très bon|very good|uitstekend|excellent|comme neuf/.test(s)) return 'very_good';
+  if (/zo goed als nieuw|zeer goed|heel goed|sehr gut|très bon|very good|uitstekend|excellent|comme neuf/.test(s)) return 'very_good';
   if (/^goed|^bon|^good|gebruikt|used/.test(s)) return 'good';
   if (/redelijk|satisfaisant|matig|fair|niet werkend/.test(s)) return 'fair';
   return 'unknown';

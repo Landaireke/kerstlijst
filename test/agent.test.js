@@ -39,6 +39,7 @@ test('staat normaliseren', () => {
   assert.equal(normalizeCondition('Neuf sans étiquette'), 'new');
   assert.equal(normalizeCondition('Très bon état'), 'very_good');
   assert.equal(normalizeCondition('Goed'), 'good');
+  assert.equal(normalizeCondition('Heel goed'), 'very_good');
   assert.equal(normalizeCondition('Gebruikt'), 'good');
   assert.equal(normalizeCondition(null), 'unknown');
 });
