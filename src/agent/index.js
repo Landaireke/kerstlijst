@@ -6,7 +6,8 @@ import * as marketplace from './sources/marketplace.js';
 import * as vinted from './sources/vinted.js';
 import * as direct from './sources/direct.js';
 import { assessShop } from './trust.js';
-import { textCheck, visionCheck, verdict, normalizeCondition, CONDITION_LABEL, ruleCheck } from './condition.js';
+import { textCheck, visionCheck, verdict, normalizeCondition, CONDITION_LABEL, ruleCheck, normalizeSize } from './condition.js';
+import { checkPhotos } from './photo.js';
 import { secondhandCost } from './costs.js';
 import { resolveAmazon } from './resolve.js';
 import { hasFirecrawl } from './firecrawl.js';
@@ -94,8 +95,14 @@ async function runSecondhand(item, db) {
     const brandOk = brandWords.some((w) => hay.includes(w.toLowerCase()));
     const hardFlags = flags.filter((f) => f.type !== 'fake');
     const ruleFail = ruleCheck(item, l);
+    const sizeLetter = normalizeSize(l.size, l.title, l.description);
+    l.sizeLetter = sizeLetter;
+    const fakeFlag = flags.find((f) => f.type === 'fake');
     if (!brandOk) rejected.push({ ...l, reasons: ['Ander merk'] });
+    else if (fakeFlag) rejected.push({ ...l, reasons: [fakeFlag.text] });
     else if (ruleFail) rejected.push({ ...l, reasons: [ruleFail] });
+    else if (item.sizes && !sizeLetter) rejected.push({ ...l, reasons: ['Maat onbekend'] });
+    else if (item.sizes && !item.sizes.includes(sizeLetter)) rejected.push({ ...l, reasons: [`Maat ${sizeLetter} (gezocht: ${item.sizes.join(' of ')})`] });
     else if (['good', 'fair'].includes(norm)) rejected.push({ ...l, reasons: [`Staat: ${l.condition}`] });
     else if (hardFlags.length) rejected.push({ ...l, reasons: hardFlags.map((f) => f.text) });
     else if (l.price == null) rejected.push({ ...l, reasons: ['Geen vaste prijs (bieden)'], biddable: true });
@@ -110,16 +117,24 @@ async function runSecondhand(item, db) {
     try {
       if (l.needsDetail) l = { ...(await vinted.enrich(l)), flags: l.flags };
       const flags = textCheck(l);
-      const vision = await visionCheck(item, l).catch((e) => (log('vision fout', e.message), null));
+      const vision = hasClaude() ? await visionCheck(item, l).catch((e) => (log('vision fout', e.message), null)) : null;
+      const photo = vision ? null : await checkPhotos(item, l).catch((e) => (log('fotocheck fout', e.message), null));
       const v = verdict(item, l, flags, vision);
+      if (photo) {
+        // gratis modus: verdict mag niet afkeuren op 'geen fotocheck', de lokale fotocheck beslist
+        v.reasons = v.reasons.filter((r) => !/geen fotocheck/.test(r));
+        if (normalizeCondition(l.condition) === 'unknown') v.reasons.push('Staat niet vermeld');
+        if (!photo.isTarget) v.reasons.push(`Foto’s: ${photo.summary}`);
+        v.approved = v.reasons.length === 0;
+      }
       const cost = secondhandCost(l);
       const trust = await assessShop(l.url, db);
-      checked.push({ ...l, flags, vision, ...v, cost, total: cost.total, trust, conditionLabel: CONDITION_LABEL[v.conditionNorm] });
+      checked.push({ ...l, flags, vision, photo, ...v, cost, total: cost.total, trust, conditionLabel: CONDITION_LABEL[v.conditionNorm] });
     } catch (e) {
       warnings.push(`Controle mislukt voor ${l.url}: ${e.message}`);
     }
   }
-  if (!hasClaude()) warnings.push('Gratis modus: de agent filtert op opgegeven staat en beschrijving. Kijk zelf de foto’s na op model, vlekken en echtheid.');
+  if (!hasClaude()) warnings.push('Gratis modus: foto’s worden lokaal vergeleken met het gezochte model (vorm, logo, kleur). Vlekken en echtheid kun je het best zelf nog even nakijken.');
 
   const approved = checked.filter((l) => l.approved).sort((a, b) => a.total - b.total);
   const best = approved.find((l) => l.fakeRisk !== 'medium') || approved[0] || null;

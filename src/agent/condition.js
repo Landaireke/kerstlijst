@@ -22,7 +22,7 @@ export const CONDITION_LABEL = {
 
 const DEFECT_WORDS = /\b(vlek(je|ken)?|scheur(tje)?|gaatje|gat(en)?\b|pilling|pluis|bolletjes|verkleurd|vaal|beschadig\w*|kapot|defect|tache[s]?|trou[s]?|déchir\w*|boulochage|bouloch\w*|délavé|abîm\w*|stain(s|ed)?|hole[s]?|tear|ripped|faded|flecken|loch)\b/i;
 const KIDS_WORDS = /\b(junior|kids?|kinder\w*|enfant\w*|jongen\w*|meisje\w*|bimbo|niño|\d{1,2}\s?(jaar|ans|years|anni)|maat\s?(9[28]|1[0-7]\d)\b|(1[0-7]\d|9[28])\s?cm|taille\s?(1[0-6]\d))\b/i;
-const FAKE_WORDS = /\b(replica|rep\b|1:1|aaa|inspired|look-?alike|dupe|copie|kopie|namaak|imitatie|zonder badge|sans badge|no badge|zonder logo)\b/i;
+const FAKE_WORDS = /(?<![a-zà-ÿ])(nep|fake|faux|replica|replika|rep|1:1|aaa|a\+|inspired|look-?alike|lookalike|dupe|copie|copy|kopie|namaak|nagemaakt|imitatie|imitation|contrefa[cç]on|niet origineel|geen origineel|not original|pas original|non original|ua quality|top kwaliteit kopie|zonder badge|sans badge|no badge|zonder logo)(?![a-zà-ÿ])/i;
 
 export function textCheck(listing) {
   const text = `${listing.title} ${listing.description || ''} ${listing.size || ''}`;
@@ -33,7 +33,12 @@ export function textCheck(listing) {
   const k = text.match(KIDS_WORDS);
   if (k) flags.push({ type: 'kids', text: `Lijkt kindermaat ("${k[0]}")` });
   const f = text.match(FAKE_WORDS);
-  if (f) flags.push({ type: 'fake', text: `Verdacht: "${f[0]}"` });
+  // "geen nep", "100% echt geen fake", "pas de faux" = juist een echtheidsclaim
+  if (f && !new RegExp(`(geen|niet|no|not|pas de|pas|aucun|kein)\\s+(\\w+\\s+)?${f[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`, 'i').test(text) && !/^(niet|geen|not|pas|non) /i.test(f[0])) {
+    flags.push({ type: 'fake', text: `Verdacht woord: "${f[0]}"` });
+  } else if (f && /^(niet|geen|not|pas|non) /i.test(f[0])) {
+    flags.push({ type: 'fake', text: `Verdacht: "${f[0]}"` });
+  }
   return flags;
 }
 
@@ -95,4 +100,23 @@ export function ruleCheck(item, l) {
   }
   const bad = (item.titleExclude || []).find((w) => has(titleColor, w));
   return bad ? `Ander model ("${bad}")` : null;
+}
+
+/** Maat naar letter: "Maat 52/54 (L)" → L, "XL / 42" → XL, "56/58" → XL. null = onbekend. */
+export function normalizeSize(size, title = '', description = '') {
+  const fromText = (t) => {
+    if (!t) return null;
+    const s = String(t).toUpperCase();
+    const m = s.match(/\((XXXL|XXL|XL|L|M|S|XS)\)/) || s.match(/(?:^|[^A-Z0-9])(XXXL|XXL|2XL|3XL|XL|L|M|S|XS)(?:[^A-Z0-9]|$)/);
+    if (m) return m[1].replace('2XL', 'XXL').replace('3XL', 'XXXL');
+    const n = s.match(/\b(4[46]|48|50|52|54|56|58|60)\b/);
+    if (n) return { 44: 'XS', 46: 'S', 48: 'M', 50: 'M', 52: 'L', 54: 'L', 56: 'XL', 58: 'XL', 60: 'XXL' }[n[1]];
+    return null;
+  };
+  const fromWords = (t) => {
+    const m = String(t || '').toUpperCase().match(/(?:MAAT|SIZE|TAILLE|MT\.?|GR\.?)\s*:?\s*(XXXL|XXL|XL|L|M|S|XS)(?![A-Z])/);
+    return m ? m[1] : null;
+  };
+  const paren = String(title || '').toUpperCase().match(/\((XXXL|XXL|XL|L|M|S|XS)\)/)?.[1];
+  return fromText(size) || paren || fromWords(title) || fromWords(description) || null;
 }

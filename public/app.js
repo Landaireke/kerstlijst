@@ -73,7 +73,7 @@ function dealBlock(item, r) {
       <div class="shop">${name} ${isSh ? `<span class="small">· ${SOURCE[b.source] || b.source}${b.size ? ' · ' + esc(b.size) : ''}${b.conditionLabel ? ' · ' + esc(b.conditionLabel) : ''}</span>` : ''}</div>
       <div class="breakdown">${breakdown(b)}${b.delivery ? ' · ' + esc(b.delivery) : ''}</div>
       <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">${trustBadge(b.trust)} ${isSh ? fakeBadge(b.fakeRisk) : ''}</div>
-      ${b.vision?.summary ? `<div class="small" style="margin-top:6px">📷 ${esc(b.vision.summary)}</div>` : ''}
+      ${(b.vision?.summary || b.photo?.summary) ? `<div class="small" style="margin-top:6px">📷 ${esc(b.vision?.summary || b.photo.summary)}</div>` : ''}
       ${photos}
     </div>
     <a class="btn" href="${esc(b.url)}" target="_blank" rel="noopener">Bekijk →</a>
@@ -95,12 +95,12 @@ function offersTable(item, r) {
     return `<tr class="${o.status === 'best' ? 'is-best' : ''} ${muted || ['afgekeurd', 'te weinig betrouwbaar', 'niet op voorraad'].includes(o.status) ? 'muted' : ''}">
       ${isSh ? `<td style="width:60px">${thumb}</td>` : ''}
       <td><a href="${esc(o.url)}" target="_blank" rel="noopener"><b>${name}</b></a> ${o.status === 'best' ? '★' : ''}
-        <div class="small">${sub}</div>${reasons}</td>
+        <div class="small">${sub}</div>${o.photo?.summary && !o.reasons?.length ? `<div class="small">📷 ${esc(o.photo.summary)}</div>` : ''}${reasons}</td>
       <td class="hide-sm">${trustBadge(o.trust)} ${isSh ? fakeBadge(o.fakeRisk) : ''}</td>
       <td class="num">${o.total != null ? eur(o.total) : o.price != null ? eur(o.price) : 'bieden'}<div class="small">${o.total != null ? breakdown(o) : ''}</div></td>
     </tr>`;
   };
-  const stats = r.stats ? `<p class="small">Gevonden onder budget: ${r.stats.found} · na tekstfilter: ${r.stats.textPassed} · met foto's gecontroleerd: ${r.stats.photoChecked} · goedgekeurd: ${r.stats.approved}</p>` : '';
+  const stats = r.stats ? `<p class="small">Gevonden onder budget: ${r.stats.found} · juiste model/maat/staat volgens tekst: ${r.stats.textPassed} · foto's vergeleken: ${r.stats.photoChecked} · goedgekeurd: ${r.stats.approved}</p>` : '';
   return `<details>
     <summary>${isSh ? 'Gecontroleerde advertenties' : 'Alle aanbiedingen'} (${offers.length})${rejected.length ? ` · ${rejected.length} afgewezen` : ''}</summary>
     ${stats}

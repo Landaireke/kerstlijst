@@ -91,3 +91,17 @@ test('betrouwbaarheid', async () => {
   assert.equal(shopDomainFromName('Amazon.nl Marketplace'), 'amazon.nl');
   assert.equal(shopDomainFromName('Proshop.nl'), 'proshop.nl');
 });
+
+import { normalizeSize } from '../src/agent/condition.js';
+test('maat en nep-woorden', () => {
+  assert.equal(normalizeSize('Maat 52/54 (L)'), 'L');
+  assert.equal(normalizeSize('Maat 56/58 (XL)'), 'XL');
+  assert.equal(normalizeSize(null, 'stone island trui (L)'), 'L');
+  assert.equal(normalizeSize('Overige maten', 'Ami trui maat XL'), 'XL');
+  assert.equal(normalizeSize('Overige maten', 'Ami trui'), null);
+  const fake = (d) => textCheck({ title: 'x', description: d }).some((f) => f.type === 'fake');
+  assert.equal(fake('nep stone island'), true);
+  assert.equal(fake('fake ami'), true);
+  assert.equal(fake('100% origineel, geen nep'), false);
+  assert.equal(fake('niet origineel'), true);
+});

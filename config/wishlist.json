@@ -110,6 +110,29 @@
         "klein hart",
         "small heart",
         "petit coeur"
+      ],
+      "color": "black",
+      "clip": {
+        "target": "a black crewneck sweatshirt with a large white outlined heart logo with the letter A on the chest",
+        "others": [
+          "a white sweatshirt",
+          "a grey sweatshirt",
+          "a black sweatshirt with a small red heart",
+          "a plain black sweatshirt without logo",
+          "a hoodie with a hood",
+          "a knitted wool sweater",
+          "a t-shirt",
+          "a jacket",
+          "a stuffed toy",
+          "a fabric patch or badge on a table",
+          "a pair of trousers",
+          "a cap or hat",
+          "a child wearing clothes"
+        ]
+      },
+      "sizes": [
+        "L",
+        "XL"
       ]
     },
     {
@@ -182,6 +205,29 @@
         "short",
         "overshirt",
         "vest"
+      ],
+      "color": "grey",
+      "clip": {
+        "target": "a light grey crewneck sweatshirt with a black compass badge on the left sleeve",
+        "others": [
+          "a navy blue sweatshirt",
+          "a black sweatshirt",
+          "a green sweatshirt",
+          "a grey sweatshirt without any badge",
+          "a hoodie with a hood",
+          "a knitted wool sweater",
+          "a t-shirt",
+          "a jacket",
+          "a stuffed toy",
+          "a fabric patch or badge on a table",
+          "a pair of trousers",
+          "a cap or hat",
+          "a child wearing clothes"
+        ]
+      },
+      "sizes": [
+        "L",
+        "XL"
       ]
     },
     {
@@ -251,6 +297,28 @@
         "broek",
         "jogging",
         "pak"
+      ],
+      "color": "grey",
+      "clip": {
+        "target": "a light grey heather pullover hoodie with small black ESSENTIALS text on the chest",
+        "others": [
+          "a black hoodie",
+          "a zip-up hoodie",
+          "a grey crewneck sweatshirt without hood",
+          "a hoodie with a large colorful print",
+          "a knitted wool sweater",
+          "a t-shirt",
+          "a jacket",
+          "a stuffed toy",
+          "a fabric patch or badge on a table",
+          "a pair of trousers",
+          "a cap or hat",
+          "a child wearing clothes"
+        ]
+      },
+      "sizes": [
+        "L",
+        "XL"
       ]
     }
   ]

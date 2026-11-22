@@ -19,7 +19,7 @@ globalThis.fetch = async (url, opts = {}) => {
   if (url.includes('/lrp/api/search')) {
     // goedkope, plausibele listing toevoegen voor stone island
     const f = JSON.parse(fixture);
-    f.listings.push({ itemId: 'm1', title: 'Stone Island sweater grijs', description: 'Badge aanwezig, perfecte staat', priceInfo: { priceCents: 2000, priceType: 'FIXED' }, location: { cityName: 'Leuven' }, extendedAttributes: [{ key: 'condition', value: 'Zo goed als nieuw' }, { key: 'delivery', value: 'Ophalen of Verzenden' }], pictures: [{ largeUrl: 'https://img/1.jpg' }], vipUrl: '/v/x/m1' });
+    f.listings.push({ itemId: 'm1', title: 'Stone Island sweater grijs', description: 'Badge aanwezig, perfecte staat', priceInfo: { priceCents: 2000, priceType: 'FIXED' }, location: { cityName: 'Leuven' }, extendedAttributes: [{ key: 'condition', value: 'Zo goed als nieuw' }, { key: 'delivery', value: 'Ophalen of Verzenden' }, { key: 'size', value: 'Maat 52/54 (L)' }], pictures: [{ largeUrl: 'https://img/1.jpg' }], vipUrl: '/v/x/m1' });
     return json(f);
   }
   if (url.includes('firecrawl.dev/v2/search')) {
@@ -35,7 +35,7 @@ globalThis.fetch = async (url, opts = {}) => {
       { shopName: 'AliExpress', price: '€ 30,00', shipping: 'Gratis', shopRating: 3.6, shopReviews: 12, link: 'https://tweakers.net/clickout/2' },
     ] } } });
     if (u.includes('vinted') && u.includes('/catalog')) return json({ success: true, data: { json: { items: [
-      { title: 'Ami Paris sweat noir', brand: 'AMI Paris', size: 'M', condition: 'Très bon état', price: '22,00 €', priceInclProtection: '23,80 €', url: 'https://www.vinted.be/items/123-ami' },
+      { title: 'Ami Paris sweat noir', brand: 'AMI Paris', size: 'L', condition: 'Très bon état', price: '22,00 €', priceInclProtection: '23,80 €', url: 'https://www.vinted.be/items/123-ami' },
     ] } } });
     if (u.includes('vinted') && u.includes('/items/')) return json({ success: true, data: { json: { description: 'Porté 2 fois', condition: 'Très bon état', photos: ['https://img/v1.jpg'], price: '22,00 €', priceInclProtection: '23,80 €' } } });
     if (u.includes('amazon')) return json({ success: true, data: { json: { productName: 'Test Product 1TB', imageUrl: 'https://amz/img.jpg' } } });
