@@ -1,0 +1,23 @@
+# Optioneel: één klik deployen op Render (Blueprint). Een persistente schijf bewaart de resultaten.
+services:
+  - type: web
+    name: kerstlijst
+    runtime: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: node src/server.js
+    envVars:
+      - key: TZ
+        value: Europe/Brussels
+      - key: DATA_DIR
+        value: /var/data
+      - key: FIRECRAWL_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ADMIN_TOKEN
+        generateValue: true
+    disk:
+      name: data
+      mountPath: /var/data
+      sizeGB: 1

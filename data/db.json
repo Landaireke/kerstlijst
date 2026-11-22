@@ -1,0 +1,427 @@
+{
+  "results": {
+    "gamesir-g7-he": {
+      "best": {
+        "source": "tweakers",
+        "shop": "Proshop.nl",
+        "domain": "proshop.nl",
+        "url": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+        "price": 45.34,
+        "shipping": 4.99,
+        "shippingKnown": true,
+        "total": 50.33,
+        "inStock": true,
+        "delivery": "",
+        "rating": 3.9,
+        "reviews": 128,
+        "marketplace": false,
+        "trust": {
+          "score": 73,
+          "label": "betrouwbaar",
+          "source": "bekende shop + reviews",
+          "notes": [
+            "Tweakers 3,9/5",
+            "Shopreviews: 3.9/5 (128 reviews)"
+          ]
+        },
+        "note": "Verzendkosten volgens Tweakers (naar NL); naar BE kan dit afwijken.",
+        "status": "best"
+      },
+      "offers": [
+        {
+          "source": "tweakers",
+          "shop": "Proshop.nl",
+          "domain": "proshop.nl",
+          "url": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+          "price": 45.34,
+          "shipping": 4.99,
+          "shippingKnown": true,
+          "total": 50.33,
+          "inStock": true,
+          "delivery": "",
+          "rating": 3.9,
+          "reviews": 128,
+          "marketplace": false,
+          "trust": {
+            "score": 73,
+            "label": "betrouwbaar",
+            "source": "bekende shop + reviews",
+            "notes": [
+              "Tweakers 3,9/5",
+              "Shopreviews: 3.9/5 (128 reviews)"
+            ]
+          },
+          "note": "Verzendkosten volgens Tweakers (naar NL); naar BE kan dit afwijken.",
+          "status": "best"
+        },
+        {
+          "source": "tweakers",
+          "shop": "Galaxus",
+          "domain": "galaxus.nl",
+          "url": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+          "price": 53.49,
+          "shipping": 0,
+          "shippingKnown": true,
+          "total": 53.49,
+          "inStock": true,
+          "delivery": "",
+          "rating": 3.3,
+          "reviews": 21,
+          "marketplace": false,
+          "trust": {
+            "score": 65,
+            "label": "redelijk",
+            "source": "bekende shop + reviews",
+            "notes": [
+              "Shopreviews: 3.3/5 (21 reviews)"
+            ]
+          },
+          "note": "Verzendkosten volgens Tweakers (naar NL); naar BE kan dit afwijken.",
+          "status": "alternatief"
+        },
+        {
+          "source": "tweakers",
+          "shop": "bol",
+          "domain": "bol.com",
+          "url": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+          "price": 53.69,
+          "shipping": 0,
+          "shippingKnown": true,
+          "total": 53.69,
+          "inStock": true,
+          "delivery": "Voor 23:59 besteld, morgen in huis",
+          "rating": 4,
+          "reviews": 198,
+          "marketplace": false,
+          "trust": {
+            "score": 79,
+            "label": "betrouwbaar",
+            "source": "bekende shop + reviews",
+            "notes": [
+              "Let op partner-verkopers: score van de verkoper telt mee.",
+              "Shopreviews: 4/5 (198 reviews)"
+            ]
+          },
+          "note": "Verzendkosten volgens Tweakers (naar NL); naar BE kan dit afwijken.",
+          "status": "alternatief"
+        },
+        {
+          "source": "webshop",
+          "shop": "bol (partner: Altshop.be)",
+          "domain": "bol.com",
+          "url": "https://www.bol.com/be/nl/p/gamesir-gamesir-g7-he-black-draadloze-gamecontroller/9300000194768188/",
+          "price": 54,
+          "shipping": 0,
+          "shippingKnown": true,
+          "total": 54,
+          "inStock": true,
+          "delivery": "Op voorraad",
+          "seller": "Altshop.be",
+          "marketplace": true,
+          "trust": {
+            "score": 60,
+            "label": "zeer betrouwbaar",
+            "source": "bekende shop",
+            "notes": [
+              "Verkoop via marketplace-partner"
+            ]
+          },
+          "status": "te weinig betrouwbaar"
+        },
+        {
+          "source": "tweakers",
+          "shop": "Amazon.nl",
+          "domain": "amazon.nl",
+          "url": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+          "price": 54.11,
+          "shipping": 0,
+          "shippingKnown": true,
+          "total": 54.11,
+          "inStock": true,
+          "delivery": "",
+          "rating": 3.4,
+          "reviews": 100,
+          "marketplace": false,
+          "trust": {
+            "score": 70,
+            "label": "betrouwbaar",
+            "source": "bekende shop + reviews",
+            "notes": [
+              "Marketplace-verkopers lager (Tweakers 2,0/5).",
+              "Shopreviews: 3.4/5 (100 reviews)"
+            ]
+          },
+          "note": "Verzendkosten volgens Tweakers (naar NL); naar BE kan dit afwijken.",
+          "status": "alternatief"
+        },
+        {
+          "source": "tweakers",
+          "shop": "Azerty",
+          "domain": "azerty.nl",
+          "url": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+          "price": 54.9,
+          "shipping": 0,
+          "shippingKnown": true,
+          "total": 54.9,
+          "inStock": true,
+          "delivery": "Vandaag voor 22:00 besteld, morgen in huis",
+          "rating": 4.6,
+          "reviews": 853,
+          "marketplace": false,
+          "trust": {
+            "score": 91,
+            "label": "zeer betrouwbaar",
+            "source": "bekende shop + reviews",
+            "notes": [
+              "Tweakers 4,6/5",
+              "Shopreviews: 4.6/5 (853 reviews)"
+            ]
+          },
+          "note": "Verzendkosten volgens Tweakers (naar NL); naar BE kan dit afwijken.",
+          "status": "alternatief"
+        },
+        {
+          "source": "tweakers",
+          "shop": "AliExpress",
+          "domain": "aliexpress.com",
+          "url": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+          "price": 55.65,
+          "shipping": 0,
+          "shippingKnown": true,
+          "total": 55.65,
+          "inStock": true,
+          "delivery": "",
+          "rating": 3.6,
+          "reviews": 12,
+          "marketplace": false,
+          "trust": {
+            "score": 52,
+            "label": "twijfelachtig",
+            "source": "bekende shop + reviews",
+            "notes": [
+              "Lange levertijd, nooit beste deal als kerstcadeau.",
+              "Shopreviews: 3.6/5 (12 reviews)"
+            ]
+          },
+          "note": "Verzendkosten volgens Tweakers (naar NL); naar BE kan dit afwijken.",
+          "status": "te weinig betrouwbaar"
+        },
+        {
+          "source": "tweakers",
+          "shop": "Megekko",
+          "domain": "megekko.nl",
+          "url": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+          "price": 49.95,
+          "shipping": 5.95,
+          "shippingKnown": true,
+          "total": 55.9,
+          "inStock": true,
+          "delivery": "",
+          "rating": 4.8,
+          "reviews": 1724,
+          "marketplace": false,
+          "trust": {
+            "score": 95,
+            "label": "zeer betrouwbaar",
+            "source": "bekende shop + reviews",
+            "notes": [
+              "Tweakers 4,8/5 (1.700+ reviews)",
+              "Shopreviews: 4.8/5 (1724 reviews)"
+            ]
+          },
+          "note": "Verzendkosten volgens Tweakers (naar NL); naar BE kan dit afwijken.",
+          "status": "alternatief"
+        }
+      ],
+      "warnings": [],
+      "image": "https://media.s-bol.com/q3nW1z3LqE4y/Wn5GvKg/550x490.jpg",
+      "checkedAt": "2026-11-22T12:30:00.000Z",
+      "history": [
+        {
+          "date": "2026-11-22",
+          "total": 50.33,
+          "shop": "Proshop.nl"
+        }
+      ],
+      "seed": true
+    },
+    "wd-black-c50": {
+      "best": null,
+      "offers": [
+        {
+          "source": "webshop",
+          "shop": "Colorway",
+          "domain": "thecolorway.net",
+          "url": "https://thecolorway.net/products/xbox-wd-black-c50-512gb-expansion-card?lang=fr&country=BE&currency=EUR",
+          "price": 104.99,
+          "shipping": 0,
+          "shippingKnown": true,
+          "total": 104.99,
+          "inStock": true,
+          "delivery": "Op voorraad, gratis levering",
+          "trust": {
+            "score": 50,
+            "label": "twijfelachtig",
+            "source": "bekende shop",
+            "notes": [
+              "Onbekende internationale shop: live reviews checken."
+            ]
+          },
+          "status": "te weinig betrouwbaar"
+        }
+      ],
+      "warnings": [
+        "Tweakers toont momenteel geen actuele aanbiedingen (laagste prijs was €110 op 22 oktober). De agent zoekt morgenochtend breder (bol, Coolblue, MediaMarkt, Amazon.com.be, …).",
+        "Colorway is een internationale shop met beperkte reviews: eerst laten controleren."
+      ],
+      "image": "https://thecolorway.net/media/xbox/hires/xbox-wd-black-c50-512gb-expansion-card.webp",
+      "checkedAt": "2026-11-22T12:30:00.000Z",
+      "history": [],
+      "seed": true
+    },
+    "amazon-item": {
+      "best": null,
+      "offers": [],
+      "warnings": [
+        "De korte Amazon-link kon vanuit de bouwomgeving niet geopend worden. De agent volgt de link bij de eerste run op je server; lukt dat niet, vul dan de productnaam in via \"Aanpassen\"."
+      ],
+      "checkedAt": "2026-11-22T12:30:00.000Z",
+      "history": [],
+      "seed": true
+    },
+    "stone-island": {
+      "best": null,
+      "offers": [
+        {
+          "id": "2dehands:m2436543287",
+          "source": "2dehands",
+          "title": "Stone Island sweater negen maat M",
+          "description": "Negen met tas",
+          "price": 19.99,
+          "priceType": "FIXED",
+          "condition": "Nieuw",
+          "size": "Maat 48/50 (M)",
+          "location": "Mons, België",
+          "photos": [
+            "https://images.2dehands.com/api/v1/hz-twh-pro-listing/images/fd0293eb-9ea9-4d21-9929-b707dc9a2fa2?rule=ecg_mp_eps$_85.jpg"
+          ],
+          "url": "https://www.2dehands.be/v/kleding-heren/truien-en-vesten/m2436543287-stone-island-sweater-negen-maat-m",
+          "canShip": true,
+          "pickupOnly": false,
+          "sellerShipping": null,
+          "cost": {
+            "total": 24.99,
+            "breakdown": [
+              {
+                "label": "Prijs",
+                "amount": 19.99
+              },
+              {
+                "label": "Verzending",
+                "amount": 5
+              }
+            ],
+            "estimated": true
+          },
+          "total": 24.99,
+          "trust": {
+            "score": 70,
+            "label": "betrouwbaar",
+            "source": "bekende shop",
+            "notes": [
+              "Particuliere verkopers: alleen betalen via 'Gelijk betalen'/verzending met koperbescherming of ophalen."
+            ]
+          },
+          "status": "te controleren",
+          "approved": false,
+          "reasons": [
+            "Nog niet met foto’s gecontroleerd (gebeurt bij de eerste agent-run)",
+            "\"Nieuw\" voor €19,99 bij Stone Island is verdacht laag → hoog namaakrisico"
+          ],
+          "fakeRisk": "high",
+          "conditionLabel": "Nieuw"
+        }
+      ],
+      "rejected": [
+        {
+          "id": "2dehands:m2450712886",
+          "source": "2dehands",
+          "title": "Stone island grijs sweater",
+          "description": "Stone island grijs sweater zonder badge maat small ophalen of verzenden(+5€)",
+          "price": 10,
+          "priceType": "MIN_BID",
+          "condition": null,
+          "size": "S",
+          "location": "Gent, België",
+          "photos": [
+            "https://images.2dehands.com/api/v1/hz-twh-pro-listing/images/f673ac92-3ee6-47d9-a9dc-e467427dccfc?rule=ecg_mp_eps$_85.jpg"
+          ],
+          "url": "https://www.2dehands.be/v/kleding-heren/truien-en-vesten/m2450712886-stone-island-grijs-sweater",
+          "reasons": [
+            "Zonder badge → niet het gezochte model",
+            "Staat niet vermeld"
+          ]
+        }
+      ],
+      "stats": {
+        "found": 3,
+        "textPassed": 1,
+        "photoChecked": 0,
+        "approved": 0
+      },
+      "warnings": [
+        "Startcheck zonder fotocontrole. Echte Stone Island-sweaters onder €23 zijn zeldzaam: reken op veel namaak."
+      ],
+      "image": "/img/ref-stone-island.jpg",
+      "checkedAt": "2026-11-22T12:30:00.000Z",
+      "history": [],
+      "seed": true
+    },
+    "ami-paris": {
+      "best": null,
+      "offers": [],
+      "rejected": [],
+      "stats": {
+        "found": 0,
+        "textPassed": 0,
+        "photoChecked": 0,
+        "approved": 0
+      },
+      "warnings": [
+        "Bij de startcheck op 2dehands geen Ami de Cœur-sweater met vaste prijs onder €23. Vinted wordt vanaf de eerste agent-run meegenomen."
+      ],
+      "image": "/img/ref-ami.jpg",
+      "checkedAt": "2026-11-22T12:30:00.000Z",
+      "history": [],
+      "seed": true
+    },
+    "essentials-hoodie": {
+      "best": null,
+      "offers": [],
+      "rejected": [],
+      "stats": {
+        "found": 0,
+        "textPassed": 0,
+        "photoChecked": 0,
+        "approved": 0
+      },
+      "warnings": [
+        "Bij de startcheck op 2dehands 0 resultaten onder €23. Vinted wordt vanaf de eerste agent-run meegenomen."
+      ],
+      "image": "/img/ref-essentials.jpg",
+      "checkedAt": "2026-11-22T12:30:00.000Z",
+      "history": [],
+      "seed": true
+    }
+  },
+  "runs": [
+    {
+      "startedAt": "2026-11-22T12:30:00.000Z",
+      "finishedAt": "2026-11-22T12:30:00.000Z",
+      "items": [],
+      "note": "Startcheck door Claude tijdens het bouwen"
+    }
+  ],
+  "trustCache": {},
+  "overrides": {}
+}

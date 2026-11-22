@@ -1,0 +1,93 @@
+{
+  "items": [
+    {
+      "id": "wd-black-c50",
+      "type": "new",
+      "name": "WD_BLACK C50 Expansion Card voor Xbox Series X|S – 512 GB",
+      "searchQuery": "WD_BLACK C50 512GB Xbox expansion card",
+      "mpn": "WDBMPH5120ANC-WCSN",
+      "image": "https://thecolorway.net/media/xbox/hires/xbox-wd-black-c50-512gb-expansion-card.webp",
+      "sourceUrl": "https://thecolorway.net/products/xbox-wd-black-c50-512gb-expansion-card?lang=fr&country=BE&currency=EUR",
+      "tweakersUrl": "https://tweakers.net/pricewatch/1961380/wd_black-c50-expansion-card-for-xbox-512gb.html"
+    },
+    {
+      "id": "gamesir-g7-he",
+      "type": "new",
+      "name": "GameSir G7 HE controller (zwart) – Xbox & PC",
+      "searchQuery": "GameSir G7 HE zwart controller",
+      "ean": "6936685221529",
+      "image": "https://media.s-bol.com/q3nW1z3LqE4y/Wn5GvKg/550x490.jpg",
+      "sourceUrl": "https://www.bol.com/be/nl/p/gamesir-gamesir-g7-he-black-draadloze-gamecontroller/9300000194768188/",
+      "tweakersUrl": "https://tweakers.net/pricewatch/2285626/gamesir-g7-he-zwart.html",
+      "note": "Let op: ondanks 'draadloos' in de bol-URL is de G7 HE een bedrade controller."
+    },
+    {
+      "id": "amazon-item",
+      "type": "new",
+      "name": "Amazon-artikel (wordt herkend bij de eerste run)",
+      "searchQuery": "",
+      "image": "",
+      "sourceUrl": "https://amzn.eu/d/0fV8wuKW",
+      "needsResolve": true
+    },
+    {
+      "id": "ami-paris",
+      "type": "secondhand",
+      "name": "Ami Paris 'Ami de Cœur' sweater – zwart, groot hartlogo",
+      "searchQueries": [
+        "ami paris trui",
+        "ami de coeur sweater",
+        "ami paris sweater zwart"
+      ],
+      "maxPrice": 23,
+      "referenceImage": "/img/ref-ami.jpg",
+      "modelDescription": "Zwarte crewneck sweatshirt van Ami Paris met GROOT 'Ami de Cœur' logo (hart boven een A) op de linkerborst, wit/grijs omrand met dubbele contourlijn, zoals een varsity-patch. Geen klein geborduurd hartje, geen andere kleur, geen hoodie, geen gebreide trui.",
+      "minCondition": "very_good",
+      "brandMatch": [
+        "ami paris",
+        "ami de c",
+        "amiparis",
+        "ami coeur",
+        "ami cœur"
+      ]
+    },
+    {
+      "id": "stone-island",
+      "type": "secondhand",
+      "name": "Stone Island crewneck sweater – grijs met badge",
+      "searchQueries": [
+        "stone island trui",
+        "stone island sweater",
+        "stone island crewneck"
+      ],
+      "maxPrice": 23,
+      "referenceImage": "/img/ref-stone-island.jpg",
+      "modelDescription": "Lichtgrijze (melange) crewneck sweatshirt van Stone Island, effen voorkant, met de afneembare kompasbadge (zwart met groen/geel kompas) op de linkermouw. Geen hoodie, geen gebreide trui, geen kindermaat, geen exemplaar zonder badge.",
+      "minCondition": "very_good",
+      "brandMatch": [
+        "stone island",
+        "stoneisland",
+        "stone-island"
+      ]
+    },
+    {
+      "id": "essentials-hoodie",
+      "type": "secondhand",
+      "name": "Fear of God Essentials hoodie – light heather grey",
+      "searchQueries": [
+        "essentials hoodie",
+        "fear of god essentials hoodie",
+        "essentials fear of god"
+      ],
+      "maxPrice": 23,
+      "referenceImage": "/img/ref-essentials.jpg",
+      "modelDescription": "Lichtgrijze gemêleerde (light heather grey / light oatmeal) pullover hoodie van Fear of God Essentials met kleine zwarte 'ESSENTIALS'-tekst (met 'FEAR OF GOD' eronder) op de borst, zwart rubberen label op de capuchon, buidelzak. Geen zip-hoodie, geen crewneck, geen kindermaat.",
+      "minCondition": "very_good",
+      "brandMatch": [
+        "essentials",
+        "fear of god",
+        "fog "
+      ]
+    }
+  ]
+}
